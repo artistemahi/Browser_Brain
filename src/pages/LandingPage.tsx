@@ -1,9 +1,11 @@
 import Header from "../components/Header"
+import LandingBody from "../components/LandingBody"
 
 const LandingPage = () => {
   return (
-    <div>
+    <div >
         <Header></Header>
+        <LandingBody></LandingBody>
     </div>
   )
 }

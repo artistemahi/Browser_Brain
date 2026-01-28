@@ -1,1 +1,7 @@
 @import "tailwindcss";
+@font-face {
+  font-family: "Beaststreet";
+  src: url("./assets/fonts/Beaststreet.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
