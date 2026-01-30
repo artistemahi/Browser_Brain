@@ -4,7 +4,8 @@ import React from "react";
 
 const Header = () => {
   return (
-    <header className="bg-black text-white border-b border-white/10">
+    <div  className="bg-black text-white border-b border-white/10">
+    <header>
       
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
         <div className="rounded-full  bg-white ">
@@ -59,6 +60,7 @@ const Header = () => {
         </div>
       </div>
     </header>
+    </div>
   );
 };
 
