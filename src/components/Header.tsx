@@ -1,21 +1,26 @@
-import React from 'react'
+import logoVideo from "../assets/logo/Juliana.mp4";
+
+import React from "react";
 
 const Header = () => {
   return (
     <header className="bg-black text-white border-b border-white/10">
+      
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-        
-        {/* Logo */}
-        <h1
-          style={{ fontFamily: "Beaststreet" }}
-          className="text-2xl tracking-wide text-textMain select-none"
-        >
-          Browser<span className="text-accent">Brain</span>
-        </h1>
+        <div className="rounded-full  bg-white ">
+       {/* Logo */}
+        <video
+          src={logoVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className=" mt-14 h-30 w-auto rounded-full"
+        />
+        </div>
 
         {/* Right section */}
         <div className="flex items-center gap-4">
-          
           {/* Search */}
           <div className="relative">
             <input
