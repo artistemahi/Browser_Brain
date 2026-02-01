@@ -1,9 +1,12 @@
-import React from 'react'
 import Headers from '../components/Header'
+import GlobalBody from '../components/GlobalBody'
 const GlobalPage = () => {
+   
   return (
     <div>
-        <Headers></Headers>
+
+        <Headers isHomepage={true}></Headers>
+        <GlobalBody></GlobalBody>
     </div>
   )
 }

@@ -1,24 +1,24 @@
 import logoVideo from "../assets/logo/Juliana.mp4";
 
-import React from "react";
-
-const Header = () => {
+const Header = ( { isHomepage }: { isHomepage: boolean } ) => {
+      
   return (
     <div  className="bg-black text-white border-b border-white/10">
     <header>
       
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-        <div className="rounded-full  bg-white ">
+      
        {/* Logo */}
-        <video
+       {!isHomepage ? <video
           src={logoVideo}
           autoPlay
           loop
           muted
           playsInline
           className=" mt-14 h-30 w-auto rounded-full"
-        />
-        </div>
+      /> : <h1 className="text-2xl font-bold text-shadow-white">Browser Brain</h1> }
+      
+        
 
         {/* Right section */}
         <div className="flex items-center gap-4">
