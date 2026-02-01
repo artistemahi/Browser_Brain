@@ -11,6 +11,8 @@ const Terminal = () => {
 
   //select btn
   const [open, setOpen] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState("Select 🔽");
+
   useEffect(() => {
     const currentLine = currentItem.lines[lineIndex];
     let timer: ReturnType<typeof setTimeout>;
@@ -71,13 +73,19 @@ const Terminal = () => {
       </p>
       <button
         onClick={() => setOpen(!open)}
-        className="bg-gray-500 hover:bg-white hover:text-black text-white font-bold py-2 px-4 mt-2 rounded-lg  self-center"
+        className="bg-gray-500 hover:bg-white hover:text-black text-white font-bold py-2 px-4 mt-2 rounded-lg"
       >
-        Select Topic 🔽
+        {selectedTopic}
       </button>
+
       {open && (
-        <div className="absolute mt-2 bg-black text-green-500 font-mono p-4 rounded-lg w-48 border border-green-500 left-48 top-100">
-          <DropdownBtnContent />
+        <div className="absolute mt-2 bg-black text-green-500 font-mono p-4 rounded-lg w-48 border border-green-500  top-90 left-48">
+          <DropdownBtnContent
+            onSelect={(topic: string) => {
+              setSelectedTopic(topic + " 🔽");
+              setOpen(false);
+            }}
+          />
         </div>
       )}
     </div>
