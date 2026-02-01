@@ -66,7 +66,7 @@ const Terminal = () => {
         {text}
         <span className="animate-pulse">▋</span>
       </p>
-
+      
       {/* Footer hint */}
       <p className="mt-6 text-xs text-green-400/60">
         Please select the topic for study
@@ -88,6 +88,7 @@ const Terminal = () => {
           />
         </div>
       )}
+
     </div>
   );
 };
