@@ -13,10 +13,10 @@ const LandingBody = () => {
         <h2 className="text-white text-xl mt-4 ml-40 ">
           Explore how browsers work under the hood.
         </h2>
-        <div className="flex gap-6 justify-center">
+        <div className="flex gap-6 justify-center items-center">
           <Terminal />
           {/* <Terminal /> */}
-         <Link to="/global"> <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg mt-8 h-12 self-center">
+         <Link to="/home"> <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg mt-8 h-12 self-center">
             Start Exploring
           </button>
           </Link>

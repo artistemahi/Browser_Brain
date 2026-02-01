@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Headers from '../components/Header'
 const GlobalPage = () => {
   return (
-    <div>GlobalPage</div>
+    <div>
+        <Headers></Headers>
+    </div>
   )
 }
 
