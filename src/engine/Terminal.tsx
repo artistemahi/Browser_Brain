@@ -2,12 +2,13 @@ import { terminalItems } from "../../utils/TerminalContent";
 import { useState, useEffect } from "react";
 import DropdownBtnContent from "../../utils/DropdownBtnContent";
 const Terminal = () => {
-  const [itemIndex, setItemIndex] = useState(0);
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [text, setText] = useState("");
+  const [itemIndex, setItemIndex] = useState(0); // konsa topic
+  const [lineIndex, setLineIndex] = useState(0);  // konsa line
+  const [charIndex, setCharIndex] = useState(0); // konsa character
+  const [text, setText] = useState(""); 
 
   const currentItem = terminalItems[itemIndex];
+  // console.log("Current Item:", currentItem);
 
   //select btn
   const [open, setOpen] = useState(false);
@@ -34,13 +35,13 @@ const Terminal = () => {
         } else {
           // Move to next topic
           setLineIndex(0);
-          setItemIndex((itemIndex + 1) % terminalItems.length);
+          setItemIndex((itemIndex + 1) % terminalItems.length);  // loop back to first topic  (0+1)%3=1, (1+1)%3=2, (2+1)%3=0
         }
       }, 800);
     }
 
     return () => clearTimeout(timer);
-  }, [charIndex, lineIndex, itemIndex]);
+  }, [charIndex, lineIndex, itemIndex, currentItem.lines]);
 
   return (
     <div className="bg-black text-green-500 font-mono p-4 mt-8 rounded-lg w-96 h-56 overflow-hidden">
