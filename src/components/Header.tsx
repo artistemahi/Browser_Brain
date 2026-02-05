@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logoVideo from "../assets/logo/Juliana.mp4";
 
 const Header = ( { isHomepage }: { isHomepage: boolean } ) => {
@@ -16,7 +17,7 @@ const Header = ( { isHomepage }: { isHomepage: boolean } ) => {
           muted
           playsInline
           className=" mt-14 h-30 w-auto rounded-full"
-      /> : <h1 className="text-2xl font-bold text-shadow-white">Browser Brain</h1> }
+      /> : <Link to="/home"><h1 className="text-2xl font-bold text-shadow-white">Browser Brain</h1></Link> }
       
         
 
