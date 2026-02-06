@@ -1,13 +1,12 @@
-import React from "react";
 import Headers from "../components/Header";
-import RenderingContent from "../components/RenderingContent";
+import RenderingBody from "../components/RenderingBody";
 const RenderingPage = () => {
   return (
     <div>
       <Headers isHomepage={true}></Headers>
       <div className="bg-[rgb(28,33,48)] min-h-dvh text-white">
         Rendering Page Content
-        <RenderingContent />
+        <RenderingBody />
       </div>
     </div>
   );
