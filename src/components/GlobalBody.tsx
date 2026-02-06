@@ -1,4 +1,5 @@
 import { PlayIcon, BackwardStep, ForwardStep,StopIcon } from "../../utils/constants";
+import DomStage1 from "./DomStage1";
 import FooterPage from "../pages/FooterPage";
 import {Link} from "react-router-dom";
 const GlobalBody = () => {
@@ -18,7 +19,7 @@ const GlobalBody = () => {
           <Link to="/performance"> <button> Performance</button></Link>
         </div>
         {/* main body */}
-        <div className="flex-1 bg-fuchsia-50 px-10 text-center">this is Main Body</div>
+        <div className="flex-1 bg-fuchsia-50 px-10 text-center"><DomStage1 /></div>
         {/* right pannel */}
         <div className="bg-[rgb(28,33,48)] border-green-400 border p-4 text-white  ">
          <div className="flex flex-col space-y-8  ">
