@@ -4,6 +4,7 @@ import DomNode from "./DomNode";
 function htmlToTree(html: string) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
+  console.log(doc.body);
 
   type DomTreeNode = {
     tag: string;
