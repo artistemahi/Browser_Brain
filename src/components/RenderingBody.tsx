@@ -20,16 +20,16 @@ const RenderingBody = () => {
               {" "}
               <button> Rendering</button>
             </Link>
-            <section>
-              <ul>About Rendering</ul>
-              <ul>Types</ul>
+            <section className="py-2">
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black ">About Rendering</ul>
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Types</ul>
             </section>
             <section>
-              <ul>Dom</ul>
-              <ul>Style</ul>
-              <ul>Layout</ul>
-              <ul>Pain</ul>
-              <ul>Composite</ul>
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Dom</ul>
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Style</ul>
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Layout</ul>
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Pain</ul>
+              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Composite</ul>
             </section>
           </div>
           {/* main body */}
