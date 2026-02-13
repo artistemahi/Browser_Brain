@@ -4,7 +4,7 @@ import LandingBody from "../components/LandingBody"
 const LandingPage = () => {
   return (
     <div >
-        <Header></Header>
+        <Header isHomepage={true}></Header>
         <LandingBody></LandingBody>
     </div>
   )

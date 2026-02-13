@@ -1,5 +1,4 @@
 import FooterPage from "../pages/FooterPage";
-import { Link } from "react-router-dom";
 import {
   PlayIcon,
   StopIcon,
@@ -16,22 +15,20 @@ const RenderingBody = () => {
         <div className="bg-green-400 flex justify-evenly min-h-dvh ">
           {/* left pannel */}
           <div className="flex flex-col space-y-8 text-white border-green-400 border bg-gray-950 p-4 w-48 ">
-            <Link to="/rendering">
-              {" "}
-              <button> Rendering</button>
-            </Link>
             <section className="py-2">
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black ">About Rendering</ul>
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Types</ul>
+              <p className="bg-gray-700 px-2 rounded-2xl my-2 font-semibold text-nowrap pr-0.5" >Rendering</p>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black  hover:font-bold">About Rendering</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Types</ul>
             </section>
             <section>
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Dom</ul>
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Style</ul>
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Layout</ul>
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Pain</ul>
-              <ul className="hover:cursor-pointer pl-2 rounded-2xl hover:bg-white hover:text-black">Composite</ul>
+              <p className="bg-gray-700 px-2 rounded-2xl my-2 font-semibold text-nowrap pr-0.5" >Stages of Rendering</p>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Dom</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Style</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Layout</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Pain</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Composite</ul>
             </section>
-          </div>
+          </div> 
           {/* main body */}
           <div className="flex-1 bg-fuchsia-50 px-10 text-center">
             <RenderingContent />
