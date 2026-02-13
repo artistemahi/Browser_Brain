@@ -17,7 +17,7 @@ const RenderingBody = () => {
           <div className="flex flex-col space-y-8 text-white border-green-400 border bg-gray-950 p-4 w-48 ">
             <section className="py-2">
               <p className="bg-gray-700 px-2 rounded-2xl my-2 font-semibold text-nowrap pr-0.5" >🎨 Rendering</p>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black  hover:font-bold text-nowrap">📘 About Rendering</ul>
+              <ul className="hover:cursor-pointer pl-2 pr-2.5 rounded-2xl hover:bg-white hover:text-black  hover:font-bold text-nowrap">📘 About Rendering</ul>
               <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">🧩 Types</ul>
             </section>
             <section>

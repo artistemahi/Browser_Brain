@@ -10,8 +10,8 @@ const RenderingContent = () => {
   };
 
   return (
-    <div className="p-4 text-black">
-      <h1 className="text-2xl font-bold mb-4">what is Rendering?</h1>
+    <div className="p-4 text-black text-start">
+      <h1 className="text-4xl font-bold mb-4 ">What is Rendering?</h1>
       <p>
         Rendering is the process of generating visual output from a set of
         instructions or data. In web development, rendering refers to how a
@@ -56,8 +56,9 @@ const RenderingContent = () => {
           </motion.p>
         )}
       </AnimatePresence>
-
-      <DomStage1></DomStage1>
+      <div className="text-center">
+        <DomStage1></DomStage1>
+      </div>
     </div>
   );
 };
