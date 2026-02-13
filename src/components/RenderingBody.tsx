@@ -16,17 +16,17 @@ const RenderingBody = () => {
           {/* left pannel */}
           <div className="flex flex-col space-y-8 text-white border-green-400 border bg-gray-950 p-4 w-48 ">
             <section className="py-2">
-              <p className="bg-gray-700 px-2 rounded-2xl my-2 font-semibold text-nowrap pr-0.5" >Rendering</p>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black  hover:font-bold">About Rendering</ul>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Types</ul>
+              <p className="bg-gray-700 px-2 rounded-2xl my-2 font-semibold text-nowrap pr-0.5" >🎨 Rendering</p>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black  hover:font-bold text-nowrap">📘 About Rendering</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">🧩 Types</ul>
             </section>
             <section>
               <p className="bg-gray-700 px-2 rounded-2xl my-2 font-semibold text-nowrap pr-0.5" >Stages of Rendering</p>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Dom</ul>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Style</ul>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Layout</ul>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Pain</ul>
-              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">Composite</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">🌿 Dom</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">🎭 Style</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">📐 Layout</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">🖌 Pain</ul>
+              <ul className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">🚀 Composite</ul>
             </section>
           </div> 
           {/* main body */}
