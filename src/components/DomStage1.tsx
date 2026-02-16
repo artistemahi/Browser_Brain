@@ -15,19 +15,15 @@ const DomStage1 = () => {
           Browser does not understand HTML as text. Browser convert HTML into
           tree structure that is DOM{" "}
         </button>
-        <div className="bg-amber-300 flex justify-evenly ">
-          <textarea
+        <div className="bg-amber-300 flex justify-evenly  border-b-black border-2 rounded-lg p-4 mt-4">
+          <textarea className="w-[50%] p-3 font-mono font-size-14 bg-gray-100 border border-gray-300 rounded-lg"
             value={html}
             onChange={(e) => setHtml(e.target.value)}
-            style={{
-              width: "50%",
-              padding: "12px",
-              fontFamily: "monospace",
-              fontSize: "14px",
-            }}
+      
           />
-          <div style={{ width: "50%", padding: "20px" }}>
+          <div className="w-[50%] p-5">
             <DomTree html={html} />
+      
           </div>
         </div>
       </p>

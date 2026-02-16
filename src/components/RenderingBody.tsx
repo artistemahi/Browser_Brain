@@ -1,12 +1,6 @@
 import FooterPage from "../pages/FooterPage";
 import RenderingContent from "./RenderingContent";
 import { useState } from "react";
-import {
-  PlayIcon,
-  StopIcon,
-  BackwardStep,
-  ForwardStep,
-} from "../../utils/constants";
 
 const RenderingBody = () => {
   const [showItems, setShowItems] = useState(false);
@@ -69,20 +63,9 @@ const RenderingBody = () => {
         </main>
 
         {/* RIGHT PANEL */}
-        <aside className="bg-[rgb(28,33,48)] p-4 text-white w-48">
+        <aside className="bg-[rgb(28,33,48)] p-4 text-white w-80">
           <div className="flex flex-col space-y-6">
-            <button className="flex items-center gap-2">
-              <PlayIcon /> Run
-            </button>
-            <button className="flex items-center gap-2">
-              <StopIcon /> Stop
-            </button>
-            <button className="flex items-center gap-2">
-              <BackwardStep /> Back
-            </button>
-            <button className="flex items-center gap-2">
-              <ForwardStep /> Next
-            </button>
+           <p>tree</p>
           </div>
         </aside>
       </div>

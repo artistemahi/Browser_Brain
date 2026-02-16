@@ -7,7 +7,7 @@ export default function DomNode({ node }) {
           padding: "6px 10px",
           borderRadius: "6px",
           border: "1px solid #333",
-          background: "#e9d5ff",
+          background: "#FF0000", // color of the nodes
           fontFamily: "monospace",
         }}
       >

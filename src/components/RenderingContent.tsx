@@ -33,7 +33,7 @@ const RenderingContent = ({ showItems }: RenderingContentProps) => {
 
             <h2 className="text-2xl font-semibold">Types of Rendering</h2>
 
-            <ul className="list-disc pl-6 space-y-2">
+            <ul className="list-disc pl-6 space-y-2 py-2">
               <li><strong>SSR:</strong> Server sends ready HTML.</li>
               <li><strong>CSR:</strong> Browser builds UI using JS.</li>
               <li><strong>SSG:</strong> HTML generated at build time.</li>
