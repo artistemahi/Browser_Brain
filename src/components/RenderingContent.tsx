@@ -2,7 +2,7 @@ import StickyHeadTable from "./../../utils/renderingTable";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import DomStage1 from "./DomStage1";
-
+import Style from "../engine/Style";
 interface RenderingContentProps {
   showItems: boolean;
 }
@@ -69,6 +69,7 @@ const RenderingContent = ({ showItems }: RenderingContentProps) => {
       <div className="text-center">
         <DomStage1 />
       </div>
+      <div><Style /></div>
     </div>
   );
 };
