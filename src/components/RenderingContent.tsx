@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import DomStage1 from "./DomStage1";
 import Style from "../engine/Style";
+import Layout from "../engine/Layout"
 interface RenderingContentProps {
   showItems: boolean;
 }
@@ -70,6 +71,8 @@ const RenderingContent = ({ showItems }: RenderingContentProps) => {
         <DomStage1 />
       </div>
       <div><Style /></div>
+      <Layout></Layout>
+      
     </div>
   );
 };

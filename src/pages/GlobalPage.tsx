@@ -5,7 +5,7 @@ const GlobalPage = () => {
   return (
     <div>
 
-        <Headers isHomepage={true}></Headers>
+        <Headers ></Headers>
         <GlobalBody></GlobalBody>
     </div>
   )
