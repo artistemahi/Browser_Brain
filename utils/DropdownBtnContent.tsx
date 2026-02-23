@@ -8,7 +8,7 @@ const DropdownBtnContent: React.FC<DropdownBtnContentProps> = ({ onSelect }) => 
   const topics = [
     "Event Loop",
     "Rendering Pipeline",
-    "Performance",
+    "Async Lab",
   ];
 
   return (

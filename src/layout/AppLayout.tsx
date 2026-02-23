@@ -9,8 +9,7 @@ const AppRoutes = createBrowserRouter([
   {path: '/event-loop', element: <div>Event Loop Page</div>},
   {path: '/async-lab', element: <div>Async Lab Page</div>},
   {path: '/rendering', element: <div><RenderingPage/></div>},
-  {path: '/performance', element: <div>Performance Page</div>},
-
+ 
   
 ]);
 

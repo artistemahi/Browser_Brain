@@ -29,9 +29,9 @@ export const terminalItems: TerminalItem[] = [
     id: "performance",
     title: " Performance",
     lines: [
-      "$ Long tasks block the main thread.",
-      "$ Layout thrashing causes reflows.",
-      "$ Batch DOM updates to stay fast.",
+      "$ Async ≠ parallel.",
+      "$ Promises beat timers.",
+      "$ Event loop coordinates execution.",
     ],
   },
 ];
