@@ -6,13 +6,15 @@ import {
 } from "../../utils/constants";
 import FooterPage from "../pages/FooterPage";
 import Reordering from "./../../utils/Reordering";
+import Heroanimation from "../../utils/heroanimation";
 import { Link } from "react-router-dom";
 const GlobalBody = () => {
   return (
     <div className="bg-gray-300 min-h-dvh ">
       {/* heading section */}
-      <h1 className="bg-black  text-center">
-      <Reordering />
+      <h1 className="bg-black flex justify-center">
+        <Heroanimation />
+        <Reordering />
       </h1>
 
       {/* body section */}
