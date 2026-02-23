@@ -26,8 +26,8 @@ export const terminalItems: TerminalItem[] = [
     ],
   },
   {
-    id: "performance",
-    title: " Performance",
+    id: "Async Lab",
+    title: "Async Lab",
     lines: [
       "$ Async ≠ parallel.",
       "$ Promises beat timers.",
