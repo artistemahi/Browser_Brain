@@ -7,8 +7,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
   return (
-    <div className="bg-black text-white border-b border-white/10">
-      <header>
+      <header className="bg-black text-white border-b border-white/20  " >
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           {/* Logo */}
           {isHomepage ? (
@@ -68,7 +67,6 @@ const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
           </div>
         </div>
       </header>
-    </div>
   );
 };
 
