@@ -44,7 +44,7 @@ const GlobalBody = () => {
           <div className="flex flex-col space-y-8  ">
             <button>
               <PlayIcon />
-              <span> Run</span>
+              <span className="hover:bg-red-600 rounded-2xl text-white bg-red-500 hover:text-shadow-black px-2"> Run</span>
             </button>
             <button>
               <StopIcon />
@@ -56,7 +56,7 @@ const GlobalBody = () => {
             <button>
               <ForwardStep /> Next
             </button>
-            <button className="ml-4">Why this?</button>
+            
           </div>
         </div>
       </div>
