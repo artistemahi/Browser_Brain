@@ -26,7 +26,7 @@ const ChangingTextEff = () => {
       setCurrentWordIndex(
         (prevIndex) => (prevIndex + 1) % words.length
       );
-    }, 2500); // slightly smoother timing
+    }, 2500);
 
     return () => clearInterval(interval);
   }, []);
