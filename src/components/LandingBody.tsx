@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import Terminal from "../engine/Terminal";
+import ChangingTextEff from "../engine/ChangingTextEff";
 
 const LandingBody = () => {
 
@@ -9,7 +10,7 @@ const LandingBody = () => {
       <div className="flex-col items-center justify-center">
         <h1 className="text-white  font-bold text-6xl text-center">
           The Browser is not magic.
-          <br></br>It's a System.
+          <br></br>It's a <ChangingTextEff />
         </h1>
         <h2 className="text-white text-xl mt-4 ml-40 ">
           Explore how browsers work under the hood.

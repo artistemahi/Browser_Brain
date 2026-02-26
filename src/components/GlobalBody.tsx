@@ -9,7 +9,7 @@ import FooterPage from "../pages/FooterPage";
 import Reordering from "./../../utils/Reordering";
 import Heroanimation from "../../utils/heroanimation";
 import { Link } from "react-router-dom";
-import TextField from "@mui/material/TextField";
+
 const GlobalBody = () => {
   return (
     <div className="bg-gray-300 min-h-dvh ">
@@ -25,15 +25,15 @@ const GlobalBody = () => {
         <div className="flex flex-col space-y-8 text-white border-green-400 border bg-neutral-950 p-4 w-48 ">
           <Link to="/rendering">
             {" "}
-            <button> Rendering</button>
+            <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Rendering</button>
           </Link>
           <Link to="/event-loop">
             {" "}
-            <button> Event Loop</button>
+            <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Event Loop</button>
           </Link>
           <Link to="/async-lab">
             {" "}
-            <button> Async Lab</button>
+            <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Async Lab</button>
           </Link>
         </div>
         {/* main body */}
@@ -42,22 +42,6 @@ const GlobalBody = () => {
         </div>
         {/* right pannel */}
         <div className="bg-white text-black border-green-400 border p-4  ">
-          <div className="flex flex-col space-y-8  ">
-            <h2 className="text-xl font-bold ">Notes Editor</h2>
-            <div className="bg-black rounded-md max-h-dvh max-w-dvw">
-              <TextField
-                placeholder="Notes..."
-                className="bg-white rounded-md border-b-black"
-              ></TextField>
-            </div>
-            <div className="flex justify-evenly mt-2">
-              <button className="bg-green-500 rounded-2xl text-white px-2 hover:bg-green-600 hover:cursor-pointer">
-                Save
-              </button>
-              <button className="bg-red-600 rounded-2xl text-white px-2 hover:bg-red-700 hover:cursor-pointer">
-                Clear
-              </button>
-            </div>
             {/* <button>
               <PlayIcon />
               <span className="hover:bg-red-600 rounded-2xl text-white bg-red-500 hover:text-shadow-black px-2"> Run</span>
@@ -72,7 +56,6 @@ const GlobalBody = () => {
             <button>
               <ForwardStep /> Next
             </button> */}
-          </div>
         </div>
       </div>
 
