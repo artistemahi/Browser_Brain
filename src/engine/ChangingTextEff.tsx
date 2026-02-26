@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const words: string[] = [
-  "System",
-  "Engine",
-  "Architecture",
-  "System Design",
-  "Machine",
-  "Framework",
-  "Logic",
-  "Infrastructure",
-  "Code",
-  "Blueprint",
-  "Backbone",
+interface Word {
+  text: string;
+  color: string;
+}
+const words: Word[] = [
+  {text:"System", color: "text-red-500"},
+  {text:"Engine", color: "text-yellow-500"},
+  {text:"Architecture", color: "text-blue-500"},
+  {text:"System Design", color: "text-orange-500"},
+  {text:"Machine", color: "text-purple-500"},
+  {text:"Framework", color: "text-green-500"},
+  {text:"Logic", color: "text-indigo-500"},
+  {text:"Infrastructure", color: "text-teal-500"},
+  {text:"Code", color: "text-pink-500"},
+  {text:"Blueprint", color: "text-cyan-500"},
+  {text:"Backbone", color: "text-gray-500"},
 ];
 
 const ChangingTextEff = () => {
@@ -40,9 +43,9 @@ const ChangingTextEff = () => {
             duration: 0.7,
             ease: [0.16, 1, 0.3, 1]
           }}
-          className="inline-block"
+          className={`inline-block ${words[currentWordIndex].color}`}
         >
-          {words[currentWordIndex]}
+          {words[currentWordIndex].text}
         </motion.span>
       </AnimatePresence>
     </div>
