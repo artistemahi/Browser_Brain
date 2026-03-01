@@ -18,7 +18,7 @@ const DomStage1 = ({html, setHtml}:prop) => {
         <div className="bg-amber-300 flex justify-evenly  border-b-black border-2 rounded-lg p-4 mt-4">
           {/* inputing the text */}
           <textarea
-            className="w-[50%] p-3 font-mono font-size-14 bg-gray-100 border border-gray-300 rounded-lg"
+            className="w-full p-3 font-mono font-size-14 bg-gray-100 border border-gray-300 rounded-lg"
             value={html}
             onChange={(e) => setHtml(e.target.value)}
           />
