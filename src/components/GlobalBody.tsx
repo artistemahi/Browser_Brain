@@ -37,7 +37,7 @@ const GlobalBody = () => {
             <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Async Lab</button>
           </Link>
           
-          <button className="bg-blue-500 hover:bg-blue-600 h-18 w-18 rounded-full "><img src={bookmarkIcon} alt="Notes Icon" className="w-100% h-100% rounded-full  mx-auto my-auto"/></button>
+          <button className="bg-blue-500 hover:bg-blue-600 h-18 w-18 rounded-full hover:animate-bounce hover:cursor-pointer "><img src={bookmarkIcon} alt="Notes Icon" className="w-100% h-100% rounded-full  mx-auto my-auto"/></button>
         </div>
         {/* main body */}
         <div className="flex-1 bg-neutral-800 px-10 text-center text-white ">

@@ -1,5 +1,6 @@
 import FooterPage from "../pages/FooterPage";
 import RenderingContent from "./RenderingContent";
+import RenderingRight from "./RenderingRight";
 import { useState } from "react";
 
 const RenderingBody = () => {
@@ -8,6 +9,13 @@ const RenderingBody = () => {
   const handleItemsClick = () => {
     setShowItems((prev) => !prev); // safer way
   };
+  const [html, setHtml] = useState(`<head>
+  <title>My Page</title>
+</head>
+<body>
+  <h1>Hello World</h1>
+  <h2>Type here</h2>
+</body>`);
 
   return (
     <div className="bg-gray-300 min-h-dvh flex flex-col">
@@ -47,7 +55,7 @@ const RenderingBody = () => {
               </button>{" "}
               <button className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">
                 {" "}
-                🖌 Pain{" "}
+                🖌 Paint{" "}
               </button>{" "}
               <button className="hover:cursor-pointer px-2 rounded-2xl hover:bg-white hover:text-black hover:font-bold">
                 {" "}
@@ -59,13 +67,19 @@ const RenderingBody = () => {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 bg-fuchsia-50 px-10 py-6">
-          <RenderingContent showItems={showItems} />
+          <RenderingContent
+            showItems={showItems}
+            html={html}
+            setHtml={setHtml}
+          />
         </main>
 
         {/* RIGHT PANEL */}
         <aside className="bg-[rgb(28,33,48)] p-4 text-white w-80">
           <div className="flex flex-col space-y-6">
-           <p>tree</p>
+            <p>
+              <RenderingRight html={html} />
+            </p>
           </div>
         </aside>
       </div>
