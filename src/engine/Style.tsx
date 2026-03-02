@@ -20,7 +20,7 @@ const Style = ({  css, setCss }: prop) => {
           onClick={ClickHandler}
           className="hover:bg-green-500 rounded-2xl text-white bg-green-600 hover:cursor-pointer p-2"
         >
-          Do you think what does browser reads in the CSS file{" "}
+          Do you think what does browser reads in the CSS file ❓ {" "}
         </button>
         {IsOpen && (
           <p className="p-2 bg-cyan-300 rounded-3xl m-3">
