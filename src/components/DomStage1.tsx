@@ -5,7 +5,7 @@ interface prop{
 const DomStage1 = ({html, setHtml}:prop) => {
   return (
     <div className="p-4 bg-gray-200 rounded-lg text-start">
-      <h2 className="text-xl font-semibold mb-2">DOM</h2>
+      <h2 className="text-2xl font-bold mb-2">DOM</h2>
       <p>
         The Document Object Model (DOM) is a programming interface for HTML and
         XML documents. It represents the structure of a webpage as a tree of

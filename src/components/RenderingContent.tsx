@@ -1,6 +1,8 @@
 import StickyHeadTable from "./../../utils/renderingTable";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
+import Composite from "../engine/Composite"
+import Paint from "../engine/Paint";
 import DomStage1 from "./DomStage1";
 import Style from "../engine/Style";
 import Layout from "../engine/Layout";
@@ -92,7 +94,12 @@ const RenderingContent = ({
       </div>
       <div ref={layoutRef}>
           <Layout setshowLayout={setShowLayoutBorder} />
-      
+      </div>
+      <div>
+        <Paint/>
+      </div>
+      <div>
+        <Composite/>
       </div>
     </div>
   );

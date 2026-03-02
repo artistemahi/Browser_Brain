@@ -9,7 +9,7 @@ const Layout = ({setshowLayout}:prop) => {
   }
   return (
     <div className=" bg-gray-200 rounded-lg p-4 mt-4">
-      <h2 className="text-xl font-semibold mb-2">Layout</h2>
+      <h2 className="text-2xl font-bold mb-2">Layout</h2>
       <p>
         After styles are calculated, the browser now determines the exact
         geometry of every element.
