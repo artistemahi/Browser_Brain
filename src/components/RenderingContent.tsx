@@ -1,11 +1,11 @@
 import StickyHeadTable from "./../../utils/renderingTable";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
-import Composite from "../engine/CompositeStage5"
-import Paint from "../engine/PaintStage4";
-import DomStage1 from "../engine/DomStage1";
-import Style from "../engine/StyleStage2";
-import Layout from "../engine/LayoutStage3";
+import Composite from "../rendering_Stages/CompositeStage5"
+import Paint from "../rendering_Stages/PaintStage4";
+import DomStage1 from "../rendering_Stages/DomStage1";
+import Style from "../rendering_Stages/StyleStage2";
+import Layout from "../rendering_Stages/LayoutStage3";
 interface RenderingContentProps {
   showItems: boolean;
   css: string;
