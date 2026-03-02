@@ -12,10 +12,10 @@ const RenderingRight = ({ html, css }: prop) => {
         </style>
       </head>
       <body>
-        ${html}
+        ${html}  
       </body>
     </html>
-  `;
+  `; // here sytling is appling on the html 
 
   return (
     <div className="flex-col">
