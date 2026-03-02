@@ -1,7 +1,6 @@
 interface prop{
   html:string;
   setHtml:React.Dispatch<React.SetStateAction<string>>;
-
 }
 const DomStage1 = ({html, setHtml}:prop) => {
   return (
@@ -24,8 +23,8 @@ const DomStage1 = ({html, setHtml}:prop) => {
           />
         </div>
         <div>
-          At this stage:<br></br> The browser knows what elements exist, But it
-          does not know how they should look yet
+          At this stage:<br></br> <b>The browser knows what elements exist, But it
+          does not know how they should look yet</b>
         </div>
       </p>
     </div>

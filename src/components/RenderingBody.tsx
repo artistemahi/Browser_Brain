@@ -9,13 +9,15 @@ const RenderingBody = () => {
   const handleItemsClick = () => {
     setShowItems((prev) => !prev); // safer way
   };
-  const [html, setHtml] = useState(`<head>
-  <title>My Page</title>
-</head>
-<body>
-  <h1>Hello World</h1>
-  <h2>Type here</h2>
-</body>`);
+  const [html, setHtml] = useState(`
+  <head>
+    <title>My Page</title>
+    </head>
+    <body>
+    <h1>Hello World</h1>
+    <h2>Type here</h2>
+  </body>`);
+  const [css, setCss] = useState(`h1 { color: red; }`);
 
   return (
     <div className="bg-gray-300 min-h-dvh flex flex-col">
@@ -71,6 +73,8 @@ const RenderingBody = () => {
             showItems={showItems}
             html={html}
             setHtml={setHtml}
+            css={css}
+            setCss={setCss}
           />
         </main>
 
@@ -78,7 +82,7 @@ const RenderingBody = () => {
         <aside className="bg-[rgb(28,33,48)] p-4 text-white w-80">
           <div className="flex flex-col space-y-6 sticky top-0 h-screen p-4 overflow-auto">
             <p>
-              <RenderingRight html={html} />
+              <RenderingRight html={html} css ={css}/>
             </p>
           </div>
         </aside>
