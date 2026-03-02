@@ -1,5 +1,8 @@
 import {useState} from "react";
-const Layout = () => {
+interface prop {
+  setshowLayout:React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Layout = ({setshowLayout}:prop) => {
   const [IsOpen,setIsOpen] = useState(false);
   const ClickHandler =()=>{
     setIsOpen(!IsOpen);
@@ -27,7 +30,8 @@ const Layout = () => {
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 text-start">
           Layout is expensive — avoid unnecessary reflows.
         </button>
-        <button className="bg-red-600 hover:bg-red-500 text-white p-4 font-bold rounded-2xl py-2 m-3 hover:cursor-pointer hover:  ">
+        <button onClick={()=>setshowLayout(true)}
+         className="bg-red-600 hover:bg-red-500 text-white p-4 font-bold rounded-2xl py-2 m-3 hover:cursor-pointer hover:  ">
           Lets See In Action
         </button>
       </p>

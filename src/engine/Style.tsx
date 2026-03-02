@@ -3,16 +3,17 @@ interface prop {
   css: string;
   html: string;
   setCss: React.Dispatch<React.SetStateAction<string>>;
+  
 }
 
-const Style = ({ css, setCss }: prop) => {
+const Style = ({ css, setCss  }: prop) => {
   const [IsOpen, setIsOpen] = useState(false);
   const ClickHandler = () => {
     setIsOpen(!IsOpen);
   };
 
   return (
-    <div className=" bg-gray-200 rounded-lg p-4 mt-4">
+    <div className="bg-gray-200 rounded-lg p-4 mt-4 transition-all duration-300">
       <h2 className="text-xl font-semibold mb-2">Style</h2>
       <p>
         After the DOM is constructed, now the browser reads the CSS.

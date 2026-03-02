@@ -2,8 +2,9 @@ import DomTree from "../engine/DomParser";
 interface prop {
   html: string;
   css: string;
+  showLayoutBorder: boolean;
 }
-const RenderingRight = ({ html, css }: prop) => {
+const RenderingRight = ({ html, css,showLayoutBorder }: prop) => {
   const finalDoc = `
     <html>
       <head>
@@ -15,7 +16,7 @@ const RenderingRight = ({ html, css }: prop) => {
         ${html}  
       </body>
     </html>
-  `; // here sytling is appling on the html 
+  `; // here sytling is appling on the html
 
   return (
     <div className="flex-col">
@@ -24,11 +25,15 @@ const RenderingRight = ({ html, css }: prop) => {
           <DomTree html={html} />
         </div>
       </div>
-      <div className="bg-white rounded-2xl h-full p-4 mt-4 overflow-hidden">
+      <div
+        className={`bg-white rounded-2xl h-full p-4 mt-4 overflow-hidden transition-all duration-300 ${
+          showLayoutBorder ? "border-4 border-red-500" : ""
+        }`}
+      >
         <iframe
           title="preview"
           srcDoc={finalDoc}
-          className="w-full h-full border rounded-lg"
+          className="w-full h-full rounded-lg"
         />
       </div>
     </div>

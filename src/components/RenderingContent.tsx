@@ -1,22 +1,31 @@
 import StickyHeadTable from "./../../utils/renderingTable";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState ,useRef} from "react";
+import { useState, useRef } from "react";
 import DomStage1 from "./DomStage1";
 import Style from "../engine/Style";
 import Layout from "../engine/Layout";
 interface RenderingContentProps {
   showItems: boolean;
-  css:string;
+  css: string;
   html: string;
   setHtml: React.Dispatch<React.SetStateAction<string>>;
   setCss: React.Dispatch<React.SetStateAction<string>>;
+  setShowLayoutBorder: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RenderingContent = ({ showItems,html,setHtml,css,setCss }: RenderingContentProps) => {
+const RenderingContent = ({
+  showItems,
+  html,
+  setHtml,
+  css,
+  setCss,
+  setShowLayoutBorder,
+}: RenderingContentProps) => {
   const [show, setShow] = useState(false);
-  const domRef= useRef(null);
-  const styleRef= useRef(null);
-  const layoutRef= useRef(null);
+  
+  const domRef = useRef(null);
+  const styleRef = useRef(null);
+  const layoutRef = useRef(null);
   return (
     <div className="text-black text-start space-y-6">
       <AnimatePresence>
@@ -75,14 +84,16 @@ const RenderingContent = ({ showItems,html,setHtml,css,setCss }: RenderingConten
         )}
       </AnimatePresence>
 
-      <div className="text-center"ref={domRef}>
+      <div className="text-center" ref={domRef}>
         <DomStage1 html={html} setHtml={setHtml} />
       </div>
       <div ref={styleRef}>
         <Style html={html} css={css} setCss={setCss} />
       </div>
       <div ref={layoutRef}>
-      <Layout  /></div>
+          <Layout setshowLayout={setShowLayoutBorder} />
+      
+      </div>
     </div>
   );
 };
