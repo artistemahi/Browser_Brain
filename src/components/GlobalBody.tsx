@@ -5,13 +5,17 @@
 //   StopIcon,
 // } from "../../utils/constants";
 import MainContent from "./MainContent";
+import {useState} from "react";
 import FooterPage from "../pages/FooterPage";
 import Reordering from "./../../utils/Reordering";
 import Heroanimation from "../../utils/heroanimation";
 import { Link } from "react-router-dom";
 import {bookmarkIcon} from "../../utils/ConstantsLinks";
+import NotesEditor from "../engine/NotesEditor";
 
 const GlobalBody = () => {
+  const [ShowNote, setShowNote]= useState(false);
+
   return (
     <div className="bg-gray-300 min-h-dvh ">
       {/* heading section */}
@@ -37,14 +41,15 @@ const GlobalBody = () => {
             <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Async Lab</button>
           </Link>
           
-          <button className="bg-blue-500 hover:bg-blue-600 h-18 w-18 rounded-full hover:animate-bounce hover:cursor-pointer "><img src={bookmarkIcon} alt="Notes Icon" className="w-100% h-100% rounded-full  mx-auto my-auto"/></button>
+          <button onClick={()=>setShowNote(!ShowNote)} className="bg-blue-500 hover:bg-blue-600 h-18 w-18 rounded-full hover:animate-bounce hover:cursor-pointer "><img src={bookmarkIcon} alt="Notes Icon" className="w-100% h-100% rounded-full  mx-auto my-auto"/></button>
         </div>
         {/* main body */}
         <div className="flex-1 bg-neutral-800 px-10 text-center text-white ">
           <MainContent />
         </div>
         {/* right pannel */}
-        <div className="bg-white text-black border-green-400 border p-4  ">
+        {ShowNote &&  <div className="bg-white text-black hover:border-green-400 border ">
+            <NotesEditor />
             {/* <button>
               <PlayIcon />
               <span className="hover:bg-red-600 rounded-2xl text-white bg-red-500 hover:text-shadow-black px-2"> Run</span>
@@ -59,7 +64,8 @@ const GlobalBody = () => {
             <button>
               <ForwardStep /> Next
             </button> */}
-        </div>
+        </div> }
+       
       </div>
 
       <div>
