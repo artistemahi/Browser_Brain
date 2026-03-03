@@ -1,4 +1,4 @@
-import React from "react"; // this line important to show this icons
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPause,
