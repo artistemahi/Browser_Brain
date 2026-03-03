@@ -21,12 +21,11 @@ function htmlToTree(html: string) {
         .filter(Boolean) as DomTreeNode[]), // removing null values 
     };
   }
-  return {
-    tag:"html",
-    children:[
-      walk(doc.head),
-      walk(doc.body),
-    ]}
+ return {
+  tag: "html",
+  children: [walk(doc.head), walk(doc.body)]
+    .filter((node): node is DomTreeNode => node !== null),  // this tell After filtering, this array contains only DomTreeNode.
+};
   }
   
 
