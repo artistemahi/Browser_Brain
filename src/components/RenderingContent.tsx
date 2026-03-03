@@ -1,37 +1,44 @@
 import StickyHeadTable from "./../../utils/renderingTable";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
-import Composite from "../rendering_Stages/CompositeStage5"
+import { useState } from "react";
+import Composite from "../rendering_Stages/CompositeStage5";
 import Paint from "../rendering_Stages/PaintStage4";
 import DomStage1 from "../rendering_Stages/DomStage1";
 import Style from "../rendering_Stages/StyleStage2";
 import Layout from "../rendering_Stages/LayoutStage3";
 interface RenderingContentProps {
-  showItems: boolean;
+
   css: string;
   html: string;
   setHtml: React.Dispatch<React.SetStateAction<string>>;
   setCss: React.Dispatch<React.SetStateAction<string>>;
   setShowLayoutBorder: React.Dispatch<React.SetStateAction<boolean>>;
+  domRef: React.RefObject<HTMLDivElement|null>;
+  styleRef: React.RefObject<HTMLDivElement|null>;
+  layoutRef: React.RefObject<HTMLDivElement|null>;
+  paintRef: React.RefObject<HTMLDivElement|null>;
+  compositeRef: React.RefObject<HTMLDivElement|null>;
 }
 
 const RenderingContent = ({
-  showItems,
+  
   html,
   setHtml,
   css,
   setCss,
   setShowLayoutBorder,
+  domRef,
+  styleRef,
+  layoutRef,
+  paintRef,
+  compositeRef,
 }: RenderingContentProps) => {
   const [show, setShow] = useState(false);
-  
-  const domRef = useRef(null);
-  const styleRef = useRef(null);
-  const layoutRef = useRef(null);
+
   return (
     <div className="text-black text-start space-y-6">
       <AnimatePresence>
-        {showItems && (
+        
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -83,7 +90,7 @@ const RenderingContent = ({
               )}
             </AnimatePresence>
           </motion.div>
-        )}
+      
       </AnimatePresence>
 
       <div className="text-center" ref={domRef}>
@@ -93,13 +100,13 @@ const RenderingContent = ({
         <Style html={html} css={css} setCss={setCss} />
       </div>
       <div ref={layoutRef}>
-          <Layout setshowLayout={setShowLayoutBorder} />
+        <Layout setshowLayout={setShowLayoutBorder} />
       </div>
-      <div>
-        <Paint/>
+      <div ref={paintRef}>
+        <Paint />
       </div>
-      <div>
-        <Composite/>
+      <div ref={compositeRef}>
+        <Composite />
       </div>
     </div>
   );
