@@ -25,7 +25,7 @@ const GlobalBody = () => {
       </h1>
 
       {/* body section */}
-      <div className="bg-green-400 flex justify-evenly min-h-dvh ">
+      <div className= "flex justify-evenly min-h-dvh ">
         {/* left pannel */}
         <div className="flex flex-col space-y-8 text-white border-green-400 border bg-neutral-950 p-4 w-48 ">
           <Link to="/rendering">
@@ -48,7 +48,7 @@ const GlobalBody = () => {
           <MainContent />
         </div>
         {/* right pannel */}
-        {ShowNote &&  <div className="bg-white text-black hover:border-green-400 border ">
+        {ShowNote &&  <div className="bg-white text-black  sticky  ">
             <NotesEditor />
             {/* <button>
               <PlayIcon />
