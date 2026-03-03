@@ -8,7 +8,7 @@ import MainContent from "./MainContent";
 import {useState} from "react";
 import FooterPage from "../pages/FooterPage";
 import Reordering from "./../../utils/Reordering";
-import Heroanimation from "../../utils/heroanimation";
+import Heroanimation from "../../utils/Heroanimation";
 import { Link } from "react-router-dom";
 import {bookmarkIcon} from "../../utils/ConstantsLinks";
 import NotesEditor from "../engine/NotesEditor";

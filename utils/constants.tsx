@@ -1,3 +1,4 @@
+import React from "react"; // this line important to show this icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPause,
@@ -8,7 +9,6 @@ import {
   faTrashCan,
   faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import React from "react"; // this line important to show this icons
 
 export const PlayIcon = () => (
   <FontAwesomeIcon

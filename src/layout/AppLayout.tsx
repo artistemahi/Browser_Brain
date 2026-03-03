@@ -1,4 +1,4 @@
-import React from 'react'
+
 import LandingPage from '../pages/LandingPage'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import GlobalPage from '../pages/GlobalPage';

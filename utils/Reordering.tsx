@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const phrases = [
@@ -22,7 +22,7 @@ export default function ScrambleText() {
       setDisplayText(
         targetText
           .split("")
-          .map((letter, i) => {
+          .map((_, i) => {
             if (i < iteration) return targetText[i]; // Reveal real letter
             return CHARS[Math.floor(Math.random() * CHARS.length)]; // Random char
           })

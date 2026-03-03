@@ -1,4 +1,13 @@
-export default function DomNode({ node }) {
+interface DomTreeNode {
+  tag: string;
+  children: DomTreeNode[];
+}
+
+interface DomNodeProps {
+  node: DomTreeNode;
+}
+
+export default function DomNode({ node }: DomNodeProps) {
   return (
     <div className="relative pl-6 mt-3">
 
@@ -24,7 +33,7 @@ export default function DomNode({ node }) {
       {/* Children */}
       {node.children.length > 0 && (
         <div className="mt-2">
-          {node.children.map((child, i) => (
+          {node.children.map((child, i: number) => (
             <DomNode key={i} node={child} />
           ))}
         </div>
