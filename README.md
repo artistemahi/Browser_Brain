@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# 🧠 Browser Rendering Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive visual tool that explains how browsers convert HTML & CSS into pixels on the screen.
 
-Currently, two official plugins are available:
+This project simulates the complete rendering pipeline:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+HTML → DOM → CSSOM → Render Tree → Layout → Paint → Composite
 
-## React Compiler
+Built to help developers understand how browsers work internally.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🌳 DOM Visualization
+- Converts HTML into a visual DOM tree
+- Shows node hierarchy
+- Real-time typing simulation
+- Undo & re-type animation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🎨 CSS & Styling Stage
+- Demonstrates how CSS becomes CSSOM
+- Shows how DOM + CSSOM create Render Tree
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 📐 Layout (Reflow)
+- Explains how browser calculates:
+  - Width & Height
+  - Position (x, y)
+  - Flow (block, flex, grid)
+- Demonstrates why layout is expensive
+- Shows layout-triggering operations
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🖌 Paint Stage
+- Simulates drawing:
+  - Background
+  - Borders
+  - Text
+  - Shadows
+- Demonstrates Repaint
+- Shows difference between repaint & reflow
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🚀 Composite Stage (GPU)
+- Simulates layer creation
+- Shows GPU acceleration
+- Demonstrates:
+  - Width animation (Layout + Paint + Composite)
+  - Transform animation (Composite only)
+- Explains why transform & opacity are faster
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠 Tech Stack
+
+- React
+- TypeScript
+- TailwindCSS
+- (Optional) GSAP / Framer Motion for animations
+
+---
+
+## 🧠 What This Project Teaches
+
+- How browsers parse HTML
+- How CSS is applied
+- What the Render Tree is
+- What triggers Reflow
+- What triggers Repaint
+- What GPU Composite means
+- Why some animations are expensive
+- How to write performance-friendly UI
+
+---
+
+## 🎯 Educational Purpose
+
+This project is designed for:
+
+- Frontend developers
+- Students learning browser internals
+- Interview preparation
+- Understanding performance optimization
+- Teaching rendering pipeline visually
+
+---
+
+## 🖥 How It Works
+
+1. HTML is parsed into DOM.
+2. CSS is parsed into CSSOM.
+3. DOM + CSSOM → Render Tree.
+4. Layout calculates geometry.
+5. Paint draws pixels.
+6. Composite merges layers using GPU.
+
+Each stage is interactive and visual.
+
+---
+
+## 🔥 Future Improvements
+
+- Box Model visualizer
+- Specificity visualizer
+- Paint flashing simulation
+- FPS meter simulation
+- Layer inspector mode
+- Performance warnings
+- Chrome DevTools-style rendering panel
+
+---
+
+## 📦 Installation
+
+```bash
+git clone <your-repo-link>
+cd browser-rendering-visualizer
+npm install
+npm run dev
