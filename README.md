@@ -1,117 +1,198 @@
-# 🧠 Browser Rendering Visualizer
+# 🧠 Browser Brain
 
-An interactive visual tool that explains how browsers convert HTML & CSS into pixels on the screen.
+Browser Brain is an interactive web tool designed to help developers understand **how browsers render web pages internally**.
 
-This project simulates the complete rendering pipeline:
+Instead of reading theory, Browser Brain allows users to **visualize the browser pipeline step by step**, including rendering stages, async execution, and performance behavior.
 
-HTML → DOM → CSSOM → Render Tree → Layout → Paint → Composite
-
-Built to help developers understand how browsers work internally.
+The project focuses on making **invisible browser processes visible**.
 
 ---
 
-## 🚀 Features
+## 🚀 Purpose
 
-### 🌳 DOM Visualization
-- Converts HTML into a visual DOM tree
-- Shows node hierarchy
-- Real-time typing simulation
-- Undo & re-type animation
+Modern frontend developers often build complex UIs without fully understanding how the browser processes HTML, CSS, and JavaScript.
 
-### 🎨 CSS & Styling Stage
-- Demonstrates how CSS becomes CSSOM
-- Shows how DOM + CSSOM create Render Tree
+Browser Brain helps explain:
 
-### 📐 Layout (Reflow)
-- Explains how browser calculates:
-  - Width & Height
-  - Position (x, y)
-  - Flow (block, flex, grid)
-- Demonstrates why layout is expensive
-- Shows layout-triggering operations
-
-### 🖌 Paint Stage
-- Simulates drawing:
-  - Background
-  - Borders
-  - Text
-  - Shadows
-- Demonstrates Repaint
-- Shows difference between repaint & reflow
-
-### 🚀 Composite Stage (GPU)
-- Simulates layer creation
-- Shows GPU acceleration
-- Demonstrates:
-  - Width animation (Layout + Paint + Composite)
-  - Transform animation (Composite only)
-- Explains why transform & opacity are faster
+- How the **Rendering Pipeline** works
+- How the **Event Loop schedules tasks**
+- How **layout reflows affect performance**
+- Why **GPU-accelerated properties improve animations**
 
 ---
 
-## 🛠 Tech Stack
+## 🧩 Modules
 
+### 🎨 Rendering Pipeline
+Visual explanation of how browsers convert structure into pixels.
+
+```
+DOM → CSSOM → Render Tree → Layout → Paint → Composite
+```
+
+Each stage explains what the browser calculates internally.
+
+---
+
+### ⚙ Event Loop
+Demonstrates how JavaScript executes asynchronous tasks using:
+
+```
+Call Stack
+Web APIs
+Task Queue
+Microtask Queue
+```
+
+Helps developers understand async execution order.
+
+---
+
+### 🔬 Async Lab
+Interactive environment for exploring async behavior:
+
+- Promises
+- async / await
+- Microtasks vs Macrotasks
+- Timer scheduling
+
+---
+
+### 📐 Layout & Reflow
+Explains how browsers compute element geometry:
+
+- Width and height
+- Element positioning
+- Document flow
+
+Shows why layout recalculations can impact performance.
+
+---
+
+### 🖌 Paint
+Illustrates how the browser draws pixels including:
+
+- colors
+- backgrounds
+- borders
+- text
+- images
+
+Shows what triggers repaint operations.
+
+---
+
+### 🚀 Composite (GPU Stage)
+Explains how the browser merges layers using the GPU.
+
+Highlights why animating with:
+
+```
+transform
+opacity
+```
+
+is faster than animating layout properties.
+
+---
+
+## 🖥 Tech Stack
+
+**Frontend**
 - React
 - TypeScript
 - TailwindCSS
-- (Optional) GSAP / Framer Motion for animations
+
+**Animations**
+- Motion (Framer Motion)
+
+**Routing**
+- React Router
 
 ---
 
-## 🧠 What This Project Teaches
+## ⚡ Key Features
 
-- How browsers parse HTML
-- How CSS is applied
-- What the Render Tree is
-- What triggers Reflow
-- What triggers Repaint
-- What GPU Composite means
-- Why some animations are expensive
-- How to write performance-friendly UI
+- Interactive rendering pipeline visualization
+- Scroll-triggered module animations
+- Developer-focused UI design
+- Performance insights for each stage
+- Async execution explanations
 
 ---
 
-## 🎯 Educational Purpose
+## 🧠 Concepts Covered
 
-This project is designed for:
+Browser Brain demonstrates:
+
+- Browser rendering pipeline
+- JavaScript event loop
+- Async execution model
+- Layout & reflow costs
+- Paint operations
+- GPU compositing
+- Performance optimization
+
+---
+
+## 📂 Project Structure
+
+```
+src
+ ├─ components
+ │   ├─ Header
+ │   ├─ RenderingMainContent
+ │   ├─ ScrollTriggered
+ │
+ ├─ pages
+ │   ├─ Rendering
+ │   ├─ EventLoop
+ │   ├─ AsyncLab
+ │
+ ├─ utils
+ │   ├─ constants
+ │   ├─ animations
+ │
+ └─ App.tsx
+```
+
+---
+
+## 💡 Example Learning Insight
+
+```
+Changing width → Layout + Paint
+Changing color → Paint only
+Changing transform → Composite only
+```
+
+Understanding these differences helps developers write **faster, more efficient UIs**.
+
+---
+
+## 📈 Future Improvements
+
+Planned upgrades include:
+
+- Interactive event loop simulator
+- Visual render tree builder
+- Layout thrashing detector
+- Performance timeline
+- GPU layer visualization
+
+---
+
+## 🎓 Who This Project Is For
+
+Browser Brain is useful for:
 
 - Frontend developers
 - Students learning browser internals
-- Interview preparation
-- Understanding performance optimization
-- Teaching rendering pipeline visually
+- Engineers preparing for frontend interviews
+- Anyone curious about how browsers render pages
 
 ---
 
-## 🖥 How It Works
-
-1. HTML is parsed into DOM.
-2. CSS is parsed into CSSOM.
-3. DOM + CSSOM → Render Tree.
-4. Layout calculates geometry.
-5. Paint draws pixels.
-6. Composite merges layers using GPU.
-
-Each stage is interactive and visual.
-
----
-
-## 🔥 Future Improvements
-
-- Box Model visualizer
-- Specificity visualizer
-- Paint flashing simulation
-- FPS meter simulation
-- Layer inspector mode
-- Performance warnings
-- Chrome DevTools-style rendering panel
-
----
-
-## 📦 Installation
-
-```bash
-git clone <your-repo-link>
-cd browser-rendering-visualizer
-npm install
-npm run dev
+## 🧑‍💻 Author
+Mahesh Kumar
+Built as a learning-focused frontend project exploring browser internals and rendering performance.
