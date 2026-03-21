@@ -27,7 +27,6 @@ const ChangingTextEff = () => {
         (prevIndex) => (prevIndex + 1) % words.length
       );
     }, 2500);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -36,6 +35,7 @@ const ChangingTextEff = () => {
       <AnimatePresence mode="wait">
         <motion.span
           key={currentWordIndex}
+          
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
