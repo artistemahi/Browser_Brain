@@ -1,0 +1,295 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #008080; }
+  .browser { font-family: "Arial", sans-serif; background: #c0c0c0; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; max-width: 700px; margin: 0 auto; image-rendering: pixelated; }
+  .title-bar { background: #000080; color: white; padding: 3px 6px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: bold; }
+  .title-bar-btns { display: flex; gap: 2px; }
+  .tb-btn { width: 14px; height: 14px; border: 1px solid; border-color: #ffffff #808080 #808080 #ffffff; background: #c0c0c0; color: #000; font-size: 9px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
+  .menubar { background: #c0c0c0; padding: 2px 4px; display: flex; gap: 1px; border-bottom: 1px solid #808080; }
+  .menu-item { font-size: 12px; padding: 2px 8px; cursor: pointer; color: #000; }
+  .menu-item:hover { background: #000080; color: #fff; }
+  .toolbar { background: #c0c0c0; padding: 4px; display: flex; align-items: center; gap: 3px; border-bottom: 2px solid #808080; flex-wrap: wrap; }
+  .btn { min-width: 44px; height: 34px; background: #c0c0c0; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-size: 9px; gap: 1px; padding: 2px 4px; color: #000; user-select: none; }
+  .btn:active { border-color: #808080 #ffffff #ffffff #808080; }
+  .btn.disabled { opacity: 0.4; cursor: default; }
+  .btn-icon { font-size: 14px; line-height: 1; }
+  .sep { width: 2px; height: 32px; background: #808080; border-right: 1px solid #fff; margin: 0 2px; }
+  .ns-logo { width: 36px; height: 36px; background: #000080; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; display: flex; align-items: center; justify-content: center; margin-left: auto; overflow: hidden; }
+  .ns-logo-text { font-size: 20px; color: #fff; font-weight: 900; font-family: "Times New Roman", serif; }
+  .ns-logo.loading .ns-logo-text { animation: spin 0.3s steps(4) infinite; }
+  @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+  .addr-bar { background: #c0c0c0; padding: 3px 4px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #808080; }
+  .addr-label { font-size: 12px; font-weight: bold; white-space: nowrap; }
+  .addr-input { flex: 1; height: 20px; border: 2px solid; border-color: #808080 #ffffff #ffffff #808080; background: #ffffff; font-size: 12px; font-family: "Courier New", monospace; padding: 0 4px; color: #000; outline: none; }
+  .go-btn { height: 20px; padding: 0 8px; background: #c0c0c0; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; font-size: 11px; cursor: pointer; white-space: nowrap; }
+  .go-btn:active { border-color: #808080 #ffffff #ffffff #808080; }
+  .content { background: #c0c0c0; min-height: 320px; border: 2px solid; border-color: #808080 #ffffff #ffffff #808080; margin: 2px; }
+  .page { background: #ffffff; min-height: 316px; overflow-y: auto; max-height: 316px; }
+  .status-bar { background: #c0c0c0; border-top: 2px solid; border-color: #808080 #ffffff #ffffff #808080; padding: 2px 6px; display: flex; align-items: center; gap: 8px; }
+  .status-text { font-size: 11px; flex: 1; font-family: "Arial", sans-serif; }
+  .progress-box { width: 140px; height: 14px; border: 2px solid; border-color: #808080 #ffffff #ffffff #808080; background: #c0c0c0; overflow: hidden; }
+  .progress-fill { height: 100%; background: #000080; transition: width 0.2s; width: 0%; }
+  .zone { font-size: 11px; padding: 0 8px; border-left: 1px solid #808080; }
+  .netsite { padding: 8px 12px; font-family: "Times New Roman", serif; color: #000; }
+  .netsite h1 { font-size: 22px; color: #000080; border-bottom: 3px double #000080; margin-bottom: 6px; padding-bottom: 4px; }
+  .netsite h2 { font-size: 17px; color: #800000; margin: 10px 0 4px; }
+  .netsite p { font-size: 13px; line-height: 1.5; margin-bottom: 6px; }
+  .netsite a { color: #0000cc; text-decoration: underline; cursor: pointer; }
+  .netsite a:visited { color: #800080; }
+  .netsite a:hover { color: #ff0000; }
+  .netsite hr { border: none; border-top: 2px solid #808080; margin: 8px 0; }
+  .netsite ul { padding-left: 18px; font-size: 13px; }
+  .netsite li { margin-bottom: 3px; }
+  .netsite table { border-collapse: collapse; font-size: 12px; width: 100%; margin: 6px 0; }
+  .netsite td, .netsite th { border: 1px solid #808080; padding: 3px 6px; }
+  .netsite th { background: #c0c0c0; }
+  .netsite .marquee-wrap { overflow: hidden; background: #ffff00; border: 1px solid #000; padding: 2px; margin: 6px 0; }
+  .netsite .marquee { display: inline-block; white-space: nowrap; animation: marquee 10s linear infinite; font-size: 12px; font-weight: bold; color: #ff0000; font-family: "Courier New", monospace; }
+  @keyframes marquee { 0%{transform:translateX(300px)} 100%{transform:translateX(-100%)} }
+  .netsite .blink { animation: blink 0.8s step-end infinite; }
+  @keyframes blink { 50%{opacity:0} }
+  .netsite .hit-counter { display: inline-block; background: #000; color: #00ff00; font-family: "Courier New", monospace; font-size: 13px; padding: 2px 6px; border: 1px solid #00ff00; letter-spacing: 2px; }
+  .netsite .under-construction { background: repeating-linear-gradient(45deg, #ffff00, #ffff00 10px, #000 10px, #000 20px); padding: 4px; text-align: center; margin: 8px 0; }
+  .netsite .uc-inner { background: #ffff00; font-weight: bold; font-size: 12px; padding: 2px; }
+  .netsite .guestbook { background: #ffffcc; border: 1px solid #cccc00; padding: 6px; font-size: 12px; margin: 6px 0; }
+  .netsite .webring { text-align: center; background: #eee; border: 1px dashed #808080; padding: 4px; font-size: 11px; margin-top: 8px; }
+  .about-page { padding: 10px; font-family: "Times New Roman", serif; }
+  .about-page h1 { font-size: 18px; color: #000080; }
+  .about-page p { font-size: 13px; line-height: 1.6; margin: 6px 0; }
+  .error-page { padding: 20px; text-align: center; }
+  .error-page h1 { font-size: 24px; color: #ff0000; }
+  .error-page p { font-size: 14px; font-family: "Times New Roman", serif; }
+  .blank-page { background: #c0c0c0; min-height: 316px; }
+</style>
+
+<div class="browser" id="browser">
+  <div class="title-bar">
+    <span id="page-title">Welcome to the Internet - Netscape Navigator 3.0</span>
+    <div class="title-bar-btns">
+      <div class="tb-btn">_</div>
+      <div class="tb-btn">□</div>
+      <div class="tb-btn" style="font-size:10px;">✕</div>
+    </div>
+  </div>
+  <div class="menubar">
+    <span class="menu-item">File</span>
+    <span class="menu-item">Edit</span>
+    <span class="menu-item">View</span>
+    <span class="menu-item">Go</span>
+    <span class="menu-item">Bookmarks</span>
+    <span class="menu-item">Options</span>
+    <span class="menu-item">Directory</span>
+    <span class="menu-item">Help</span>
+  </div>
+  <div class="toolbar">
+    <div class="btn disabled" id="btn-back" onclick="navBack()"><div class="btn-icon">◄</div><span>Back</span></div>
+    <div class="btn disabled" id="btn-fwd" onclick="navFwd()"><div class="btn-icon">►</div><span>Frwrd</span></div>
+    <div class="btn" onclick="reload()"><div class="btn-icon">↺</div><span>Reload</span></div>
+    <div class="btn" id="btn-stop" onclick="stopLoad()"><div class="btn-icon">✕</div><span>Stop</span></div>
+    <div class="sep"></div>
+    <div class="btn" onclick="goHome()"><div class="btn-icon">⌂</div><span>Home</span></div>
+    <div class="btn" onclick="openSearch()"><div class="btn-icon">☆</div><span>Search</span></div>
+    <div class="btn"><div class="btn-icon">☰</div><span>Guide</span></div>
+    <div class="btn"><div class="btn-icon">✉</div><span>Mail</span></div>
+    <div class="btn"><div class="btn-icon">✎</div><span>Print</span></div>
+    <div class="sep"></div>
+    <div class="ns-logo" id="ns-logo"><span class="ns-logo-text">N</span></div>
+  </div>
+  <div class="addr-bar">
+    <span class="addr-label">Location:</span>
+    <input class="addr-input" id="url-input" value="http://www.netscape.com/welcome/" onkeydown="if(event.key==='Enter')navigate()" />
+    <button class="go-btn" onclick="navigate()">Go!</button>
+  </div>
+  <div class="content">
+    <div class="page" id="page-content"></div>
+  </div>
+  <div class="status-bar">
+    <span class="status-text" id="status-text">Document: Done</span>
+    <div class="progress-box"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="zone">Internet zone</span>
+  </div>
+</div>
+
+<script>
+const pages = {
+  "http://www.netscape.com/welcome/": {
+    title: "Welcome to Netscape - Netscape Navigator 3.0",
+    html: `<div class="netsite">
+      <h1>Welcome to Netscape!</h1>
+      <div class="marquee-wrap"><div class="marquee">★ NEW: Netscape Navigator 3.0 is HERE! Download it today! ★ Java support now available! ★ Check out our cool new VRML browser! ★</div></div>
+      <p>Welcome to <b>Netscape Communications</b>, your guide to the World Wide Web!</p>
+      <h2>What's New on the Web</h2>
+      <ul>
+        <li><a onclick="go('http://www.yahoo.com/')">Yahoo!</a> - The web's most popular directory</li>
+        <li><a onclick="go('http://www.geocities.com/')">GeoCities</a> - Build your own homepage FREE!</li>
+        <li><a onclick="go('http://www.hotmail.com/')">Hotmail</a> - Free e-mail for everyone!</li>
+        <li><a onclick="go('http://www.altavista.com/')">AltaVista</a> - Search the entire web</li>
+      </ul>
+      <hr>
+      <h2>Netscape Products</h2>
+      <table>
+        <tr><th>Product</th><th>Version</th><th>Platform</th></tr>
+        <tr><td>Navigator</td><td>3.0 Gold</td><td>Win 95/NT</td></tr>
+        <tr><td>Navigator</td><td>3.0</td><td>Mac 68k/PPC</td></tr>
+        <tr><td>Communicator</td><td>4.0 beta</td><td>All</td></tr>
+      </table>
+      <hr>
+      <p style="font-size:11px;text-align:center;">You are visitor number <span class="hit-counter">004271</span> since Jan 1, 1996</p>
+      <div class="webring">[ <a>◄ Prev</a> | <b>Netscape Ring</b> | <a>Next ►</a> | <a>Random</a> ]</div>
+    </div>`
+  },
+  "http://www.geocities.com/": {
+    title: "GeoCities - Build Your Free Homepage",
+    html: `<div class="netsite">
+      <h1>GEO<span style="color:#ff6600;">CITIES</span></h1>
+      <div class="under-construction"><div class="uc-inner">⚠ THIS PAGE IS UNDER CONSTRUCTION ⚠</div></div>
+      <p><b>GeoCities</b> is your home on the World Wide Web! Create your own FREE homepage today!</p>
+      <h2>Our Neighborhoods</h2>
+      <ul>
+        <li><a>SiliconValley</a> - For technology enthusiasts</li>
+        <li><a>Hollywood</a> - Movies, TV and entertainment</li>
+        <li><a>Area51</a> - Sci-Fi and the unexplained</li>
+        <li><a>Athens</a> - Education and culture</li>
+        <li><a>Heartland</a> - Family and community</li>
+      </ul>
+      <hr>
+      <div class="guestbook">
+        <b>📖 Sign My Guestbook!</b><br>
+        <i>You are the 4,271st visitor!</i><br><br>
+        <b>Last Entry from CoolDude99:</b><br>
+        "Awesome site!! Best page on the net!! Check out my page too!!"
+      </div>
+      <p style="font-size:11px;"><span class="blink">★ NEW ★</span> Now with 11MB of FREE storage!</p>
+      <hr>
+      <p style="font-size:10px;text-align:center;">Best viewed in Netscape Navigator 3.0 at 800x600. This site uses frames.</p>
+    </div>`
+  },
+  "http://www.yahoo.com/": {
+    title: "Yahoo! - The Web Directory",
+    html: `<div class="netsite">
+      <h1 style="color:#9400D3;font-family:'Times New Roman',serif;">Yahoo!</h1>
+      <p style="font-size:11px;text-align:center;"><i>"The ultimate guide to the internet"</i></p>
+      <hr>
+      <p style="text-align:center;font-size:12px;">
+        [<a>Yellow Pages</a>] [<a>People Search</a>] [<a>Maps</a>] [<a>Classifieds</a>] [<a>News</a>] [<a>Stock Quotes</a>] [<a>Sports Scores</a>]
+      </p>
+      <hr>
+      <table width="100%"><tr>
+        <td width="50%" style="vertical-align:top">
+          <b>Arts</b><br><a style="font-size:12px;">Humanities, Photography...</a><br><br>
+          <b>Business & Economy</b><br><a style="font-size:12px;">Companies, Finance...</a><br><br>
+          <b>Computers & Internet</b><br><a style="font-size:12px;">Internet, WWW, Software...</a><br><br>
+          <b>Education</b><br><a style="font-size:12px;">Universities, K-12...</a><br><br>
+          <b>Entertainment</b><br><a style="font-size:12px;">Cool Links, Movies, Music...</a>
+        </td>
+        <td width="50%" style="vertical-align:top">
+          <b>Government</b><br><a style="font-size:12px;">Politics, Law, Military...</a><br><br>
+          <b>Health</b><br><a style="font-size:12px;">Medicine, Drugs, Diseases...</a><br><br>
+          <b>News</b><br><a style="font-size:12px;">World, Daily, Current Events</a><br><br>
+          <b>Recreation</b><br><a style="font-size:12px;">Sports, Games, Travel...</a><br><br>
+          <b>Science</b><br><a style="font-size:12px;">Biology, CS, Physics...</a>
+        </td>
+      </tr></table>
+      <hr>
+      <p style="font-size:11px;text-align:center;">Copyright © 1996 Yahoo! Inc. All Rights Reserved</p>
+    </div>`
+  },
+  "http://www.altavista.com/": {
+    title: "AltaVista: Main Page",
+    html: `<div class="netsite">
+      <h1 style="color:#0000aa;">AltaVista<sup style="font-size:10px;">TM</sup></h1>
+      <p><b>AltaVista</b> gives you access to the largest Web index: <b>31,000,000 pages</b> found on <b>476,000</b> servers</p>
+      <hr>
+      <div style="text-align:center;margin:8px 0;">
+        <input style="width:80%;height:22px;border:2px solid;border-color:#808080 #fff #fff #808080;font-size:13px;padding:0 4px;" value="search the web" /><br><br>
+        <input type="radio" checked /> the Web &nbsp;
+        <input type="radio" /> Usenet &nbsp;
+        <button style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:2px 10px;font-size:12px;cursor:pointer;">Submit</button>
+      </div>
+      <hr>
+      <h2>Surprise! AltaVista can also search in:</h2>
+      <p>Chinese · Danish · Dutch · Finnish · French · German · Italian · Japanese · Korean · Norwegian · Portuguese · Spanish · Swedish</p>
+      <hr>
+      <p style="font-size:11px;">© 1996 Digital Equipment Corporation. All rights reserved.</p>
+    </div>`
+  },
+  "about:blank": {
+    title: "Untitled - Netscape Navigator 3.0",
+    html: `<div class="blank-page"></div>`
+  }
+};
+
+let history = ["http://www.netscape.com/welcome/"];
+let histIdx = 0;
+let loading = false;
+
+function go(url) {
+  document.getElementById("url-input").value = url;
+  navigate();
+}
+
+function navigate() {
+  const raw = document.getElementById("url-input").value.trim();
+  let url = raw;
+  if (!url.startsWith("http") && !url.startsWith("about:")) {
+    url = "http://www." + url + "/";
+    document.getElementById("url-input").value = url;
+  }
+  if (histIdx < history.length - 1) history = history.slice(0, histIdx + 1);
+  history.push(url);
+  histIdx = history.length - 1;
+  loadPage(url);
+  updateNavBtns();
+}
+
+function loadPage(url) {
+  loading = true;
+  document.getElementById("btn-stop").classList.remove("disabled");
+  document.getElementById("ns-logo").classList.add("loading");
+  document.getElementById("status-text").textContent = "Connecting to " + url.split("/")[2] + "...";
+  let p = 0;
+  const pf = document.getElementById("progress-fill");
+  pf.style.width = "5%";
+  const iv = setInterval(() => {
+    p += Math.random() * 20 + 5;
+    if (p > 85) { clearInterval(iv); }
+    pf.style.width = Math.min(p, 90) + "%";
+  }, 120);
+  setTimeout(() => {
+    clearInterval(iv);
+    pf.style.width = "100%";
+    const page = pages[url] || {
+      title: "404 Not Found - Netscape Navigator 3.0",
+      html: `<div class="error-page"><h1>404 Not Found</h1><hr><p>The server could not find the requested document.<br><br>
+      The URL you requested was:<br><b style="font-family:monospace;font-size:13px;">${url}</b><br><br>
+      Please check the URL and try again. Make sure you are connected to the internet.</p><hr><p style="font-size:11px;">Netscape Navigator 3.0</p></div>`
+    };
+    document.getElementById("page-content").innerHTML = page.html;
+    document.getElementById("page-title").textContent = page.title;
+    document.getElementById("url-input").value = url;
+    document.getElementById("status-text").textContent = "Document: Done";
+    document.getElementById("ns-logo").classList.remove("loading");
+    document.getElementById("btn-stop").classList.add("disabled");
+    loading = false;
+    setTimeout(() => { pf.style.width = "0%"; }, 400);
+  }, 900 + Math.random() * 600);
+}
+
+function navBack() {
+  if (histIdx > 0) { histIdx--; loadPage(history[histIdx]); document.getElementById("url-input").value = history[histIdx]; updateNavBtns(); }
+}
+function navFwd() {
+  if (histIdx < history.length - 1) { histIdx++; loadPage(history[histIdx]); document.getElementById("url-input").value = history[histIdx]; updateNavBtns(); }
+}
+function reload() { loadPage(history[histIdx]); }
+function stopLoad() { document.getElementById("ns-logo").classList.remove("loading"); document.getElementById("status-text").textContent = "Transfer interrupted!"; document.getElementById("btn-stop").classList.add("disabled"); loading = false; }
+function goHome() { go("http://www.netscape.com/welcome/"); }
+function openSearch() { go("http://www.altavista.com/"); }
+function updateNavBtns() {
+  document.getElementById("btn-back").classList.toggle("disabled", histIdx <= 0);
+  document.getElementById("btn-fwd").classList.toggle("disabled", histIdx >= history.length - 1);
+}
+
+loadPage("http://www.netscape.com/welcome/");
+</script>

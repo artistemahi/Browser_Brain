@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import {bookmarkIcon} from "../../utils/ConstantsLinks";
 import NotesEditor from "../engine/NotesEditor";
 
+
 const GlobalBody = () => {
   const [ShowNote, setShowNote]= useState(false);
 
@@ -46,6 +47,7 @@ const GlobalBody = () => {
         {/* main body */}
         <div className="flex-1 bg-neutral-800 px-10 text-center text-white ">
           <MainContent />
+        
         </div>
         {/* right pannel */}
         {ShowNote &&  <div className="bg-white text-black  sticky  ">
