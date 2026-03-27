@@ -11,4 +11,4 @@ const GlobalPage = () => {
   )
 }
 
-export default GlobalPage
+export default GlobalPage;
