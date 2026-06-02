@@ -33,19 +33,19 @@ const GlobalBody = () => {
             <div className="flex flex-wrap gap-3">
               <Link
                 to="/rendering"
-                className="rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+                className="w-full sm:w-auto rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
                 Rendering Lab
               </Link>
               <Link
                 to="/event-loop"
-                className="rounded-full border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
+                className="w-full sm:w-auto rounded-full border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
               >
                 Event Loop
               </Link>
               <Link
                 to="/async-lab"
-                className="rounded-full border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
+                className="w-full sm:w-auto rounded-full border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
               >
                 Async Lab
               </Link>
@@ -55,7 +55,7 @@ const GlobalBody = () => {
       </section>
 
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 lg:flex-row lg:items-start">
-        <aside className="order-2 lg:order-1 lg:w-72 rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+        <aside className="order-2 lg:order-1 w-full lg:w-72 rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/80">
             Quick Actions
           </p>
@@ -94,12 +94,12 @@ const GlobalBody = () => {
           </div>
         </aside>
 
-        <main className="order-1 lg:order-2 flex-1 rounded-[2rem] border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
+        <main className="order-1 lg:order-2 flex-1 min-w-0 rounded-4xl border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
           <MainContent />
         </main>
 
         {showNote && (
-          <aside className="order-3 lg:w-80 rounded-[2rem] border border-white/10 bg-slate-900/90 p-5 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
+          <aside className="order-3 w-full lg:w-80 rounded-4xl border border-white/10 bg-slate-900/90 p-5 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
             <NotesEditor />
           </aside>
         )}

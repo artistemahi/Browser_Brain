@@ -4,7 +4,7 @@ interface prop {
   css: string;
   showLayoutBorder: boolean;
 }
-const RenderingRight = ({ html, css,showLayoutBorder }: prop) => {
+const RenderingRight = ({ html, css, showLayoutBorder }: prop) => {
   const finalDoc = `
     <html>
       <head>
@@ -19,22 +19,25 @@ const RenderingRight = ({ html, css,showLayoutBorder }: prop) => {
   `; // here sytling is appling on the html
 
   return (
-    <div className="flex-col">
-      <div className=" bg-white rounded-2xl h-full p-4 overflow-hidden flex justify-center items-start">
-        <div className="scale-90 origin-top">
+    <div className="flex flex-col gap-4">
+      <div className="bg-white rounded-2xl p-4 overflow-hidden">
+        <div className="min-h-55 w-full overflow-auto">
           <DomTree html={html} />
         </div>
       </div>
+
       <div
-        className={`bg-white rounded-2xl h-full p-4 mt-4 overflow-hidden transition-all duration-300 ${
+        className={`bg-white rounded-2xl p-4 transition-all duration-300 ${
           showLayoutBorder ? "border-4 border-red-500" : ""
         }`}
       >
-        <iframe
-          title="preview"
-          srcDoc={finalDoc}
-          className="w-full h-full rounded-lg"
-        />
+        <div className="w-full h-80 sm:h-90 md:h-105 rounded-lg overflow-hidden">
+          <iframe
+            title="preview"
+            srcDoc={finalDoc}
+            className="w-full h-full rounded-lg"
+          />
+        </div>
       </div>
     </div>
   );
