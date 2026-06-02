@@ -55,7 +55,10 @@ const EventLoop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+    <div
+      className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white"
+      id="event-loop-main"
+    >
       <Header />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="rounded-4xl border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.65)]">
@@ -109,7 +112,10 @@ const EventLoop = () => {
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6">
+            <div
+              className="rounded-3xl border border-white/10 bg-slate-950/80 p-6"
+              id="microtask-queue"
+            >
               <h3 className="text-lg font-semibold text-cyan-100">
                 Microtask Queue
               </h3>
@@ -129,7 +135,10 @@ const EventLoop = () => {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-6">
+            <div
+              className="rounded-3xl border border-white/10 bg-slate-950/80 p-6"
+              id="task-queue"
+            >
               <h3 className="text-lg font-semibold text-cyan-100">
                 Macrotask Queue
               </h3>

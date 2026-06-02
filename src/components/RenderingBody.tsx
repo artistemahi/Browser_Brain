@@ -82,7 +82,7 @@ const RenderingBody = () => {
             </div>
           </aside>
 
-          <main className="rounded-[2rem] border border-white/10 bg-slate-900/90 p-8 text-slate-100 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
+          <main className="rounded-4xl border border-white/10 bg-slate-900/90 p-8 text-slate-100 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
             <RenderingContent
               html={html}
               setHtml={setHtml}
@@ -97,7 +97,7 @@ const RenderingBody = () => {
             />
           </main>
 
-          <aside className="rounded-[2rem] border border-white/10 bg-slate-900/90 p-6 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
+          <aside className="rounded-4xl border border-white/10 bg-slate-900/90 p-6 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
             <div className="space-y-6 sticky top-6">
               <div className="rounded-3xl bg-slate-950/80 p-4">
                 <h2 className="text-lg font-semibold text-cyan-200">

@@ -4,6 +4,7 @@ import GlobalPage from "../pages/GlobalPage";
 import RenderingPage from "../pages/RenderingPage";
 import EventLoop from "../pages/EventLoop";
 import AsyncLab from "../pages/AsyncLab";
+import DocsPage from "../pages/DocsPage";
 
 const AppRoutes = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
@@ -11,6 +12,7 @@ const AppRoutes = createBrowserRouter([
   { path: "/event-loop", element: <EventLoop /> },
   { path: "/async-lab", element: <AsyncLab /> },
   { path: "/rendering", element: <RenderingPage /> },
+  { path: "/docs", element: <DocsPage /> },
 ]);
 
 const AppLayout = () => {

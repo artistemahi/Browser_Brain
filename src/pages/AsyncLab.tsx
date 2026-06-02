@@ -46,7 +46,10 @@ const AsyncLab = () => {
   const clearLog = () => setLog(["Ready for async experiments."]);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+    <div
+      className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white"
+      id="async-main"
+    >
       <Header />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="rounded-4xl border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.65)]">
@@ -60,7 +63,10 @@ const AsyncLab = () => {
           </p>
 
           <div className="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-3xl bg-slate-950/80 p-6 border border-white/10">
+            <div
+              className="rounded-3xl bg-slate-950/80 p-6 border border-white/10"
+              id="promises"
+            >
               <h2 className="text-xl font-semibold text-cyan-100">
                 Promise order
               </h2>
@@ -76,7 +82,10 @@ const AsyncLab = () => {
               </button>
             </div>
 
-            <div className="rounded-3xl bg-slate-950/80 p-6 border border-white/10">
+            <div
+              className="rounded-3xl bg-slate-950/80 p-6 border border-white/10"
+              id="async-await"
+            >
               <h2 className="text-xl font-semibold text-emerald-200">
                 Timeout & network
               </h2>
