@@ -1,23 +1,28 @@
 import logoVideo from "../assets/logo/Juliana.mp4";
-const  FooterPage = () => {
+const FooterPage = () => {
   return (
-    <div className="bg-black text-white  text-center flex justify-center items-center flex-col space-y-2">
-      
-        <video src={logoVideo} autoPlay muted loop className=" mt-14 h-30 w-auto " ></video>
-      
-      <p>&copy; 2026 Browser Brain. All rights reserved.</p>
-      <p>
-        <a href="/privacy" className="text-gray-400 hover:text-gray-200">
+    <div className="bg-black text-white text-center flex justify-center items-center flex-col space-y-4 py-10">
+      <video
+        src={logoVideo}
+        autoPlay
+        muted
+        loop
+        className="h-24 w-auto rounded-full shadow-[0_0_30px_rgba(0,229,255,0.25)]"
+      />
+      <p className="text-sm text-slate-400">
+        &copy; 2026 Browser Brain. All rights reserved.
+      </p>
+      <p className="text-xs text-slate-500">
+        <a href="/privacy" className="hover:text-white transition">
           Privacy Policy
-        </a>{" "}
-        |{" "}
-        <a href="/terms" className="text-gray-400 hover:text-gray-200">
+        </a>
+        <span className="mx-2">|</span>
+        <a href="/terms" className="hover:text-white transition">
           Terms of Service
         </a>
       </p>
-
     </div>
-  )
-}
+  );
+};
 
-export default FooterPage
+export default FooterPage;

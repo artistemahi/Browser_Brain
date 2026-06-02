@@ -5,74 +5,107 @@
 //   StopIcon,
 // } from "../../utils/constants";
 import MainContent from "./MainContent";
-import {useState} from "react";
+import { useState } from "react";
 import FooterPage from "../pages/FooterPage";
-import Reordering from "./../../utils/Reordering";
-import Heroanimation from "../../utils/Heroanimation";
 import { Link } from "react-router-dom";
-import {bookmarkIcon} from "../../utils/ConstantsLinks";
 import NotesEditor from "../engine/NotesEditor";
 
-
 const GlobalBody = () => {
-  const [ShowNote, setShowNote]= useState(false);
+  const [showNote, setShowNote] = useState(false);
 
   return (
-    <div className="bg-gray-300 min-h-dvh ">
-      {/* heading section */}
-      <h1 className="bg-black flex justify-center">
-        <Heroanimation />
-        <Reordering />
-      </h1>
-
-      {/* body section */}
-      <div className= "flex justify-evenly min-h-dvh ">
-        {/* left pannel */}
-        <div className="flex flex-col space-y-8 text-white border-green-400 border bg-neutral-950 p-4 w-48 ">
-          <Link to="/rendering">
-            {" "}
-            <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Rendering</button>
-          </Link>
-          <Link to="/event-loop">
-            {" "}
-            <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Event Loop</button>
-          </Link>
-          <Link to="/async-lab">
-            {" "}
-            <button className="bg-green-500 hover:bg-green-600 rounded-lg px-4 py-2"> Async Lab</button>
-          </Link>
-          
-          <button onClick={()=>setShowNote(!ShowNote)} className="bg-blue-500 hover:bg-blue-600 h-18 w-18 rounded-full hover:animate-bounce hover:cursor-pointer "><img src={bookmarkIcon} alt="Notes Icon" className="w-100% h-100% rounded-full  mx-auto my-auto"/></button>
+    <div className="bg-slate-950 min-h-screen text-white">
+      <section className="border-b border-white/10 py-8 px-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-cyan-300/80">
+                Browser Brain Dashboard
+              </p>
+              <h1 className="text-4xl font-bold mt-3">
+                Build your browser intuition.
+              </h1>
+              <p className="mt-3 max-w-2xl text-slate-300">
+                Jump between rendering, event loop mechanics, and the async lab
+                with a polished interface designed for learning and discovery.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/rendering"
+                className="rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+              >
+                Rendering Lab
+              </Link>
+              <Link
+                to="/event-loop"
+                className="rounded-full border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
+              >
+                Event Loop
+              </Link>
+              <Link
+                to="/async-lab"
+                className="rounded-full border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
+              >
+                Async Lab
+              </Link>
+            </div>
+          </div>
         </div>
-        {/* main body */}
-        <div className="flex-1 bg-neutral-800 px-10 text-center text-white ">
+      </section>
+
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 lg:flex-row lg:items-start">
+        <aside className="order-2 lg:order-1 lg:w-72 rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+          <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/80">
+            Quick Actions
+          </p>
+          <div className="mt-6 flex flex-col gap-3">
+            <Link
+              to="/rendering"
+              className="rounded-2xl bg-white/5 px-4 py-3 text-left transition hover:bg-cyan-500/20"
+            >
+              Explore rendering pipeline
+            </Link>
+            <Link
+              to="/event-loop"
+              className="rounded-2xl bg-white/5 px-4 py-3 text-left transition hover:bg-cyan-500/20"
+            >
+              Visualize event loop
+            </Link>
+            <Link
+              to="/async-lab"
+              className="rounded-2xl bg-white/5 px-4 py-3 text-left transition hover:bg-cyan-500/20"
+            >
+              Try async code
+            </Link>
+          </div>
+
+          <div className="mt-8 rounded-3xl bg-cyan-500/10 border border-cyan-500/20 p-4">
+            <h2 className="text-lg font-semibold text-cyan-100">Notes</h2>
+            <p className="mt-2 text-sm text-slate-300">
+              Toggle the side notebook to keep learning notes while you explore.
+            </p>
+            <button
+              onClick={() => setShowNote(!showNote)}
+              className="mt-4 w-full rounded-2xl bg-cyan-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+            >
+              {showNote ? "Hide Notes" : "Show Notes"}
+            </button>
+          </div>
+        </aside>
+
+        <main className="order-1 lg:order-2 flex-1 rounded-[2rem] border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
           <MainContent />
-        
-        </div>
-        {/* right pannel */}
-        {ShowNote &&  <div className="bg-white text-black  sticky  ">
+        </main>
+
+        {showNote && (
+          <aside className="order-3 lg:w-80 rounded-[2rem] border border-white/10 bg-slate-900/90 p-5 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
             <NotesEditor />
-            {/* <button>
-              <PlayIcon />
-              <span className="hover:bg-red-600 rounded-2xl text-white bg-red-500 hover:text-shadow-black px-2"> Run</span>
-            </button>
-            <button>
-              <StopIcon />
-              <span> Stop</span>
-            </button>
-            <button>
-              <BackwardStep /> Back
-            </button>
-            <button>
-              <ForwardStep /> Next
-            </button> */}
-        </div> }
-       
+          </aside>
+        )}
       </div>
 
-      <div>
-        <FooterPage />
-      </div>
+      <FooterPage />
     </div>
   );
 };

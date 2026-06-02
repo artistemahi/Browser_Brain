@@ -1,22 +1,29 @@
 import BrowserEvolutionLive from "./BrowserEvolutionHero";
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
+interface SectionCardProps {
+  title: string;
+  children: ReactNode;
+}
 
-const SectionCard = ({ title, children }) => {
+const SectionCard = ({ title, children }: SectionCardProps) => {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
     >
       <h2 className="text-2xl font-bold mb-3 text-cyan-400">{title}</h2>
-      <div className="text-white/80 text-sm leading-relaxed">
-        {children}
-      </div>
+      <div className="text-white/80 text-sm leading-relaxed">{children}</div>
     </motion.div>
   );
 };
 
-const Step = ({ text }) => {
+interface StepProps {
+  text: string;
+}
+
+const Step = ({ text }: StepProps) => {
   return (
     <div className="flex items-center gap-3 group">
       <div className="w-3 h-3 bg-cyan-400 rounded-full group-hover:scale-125 transition"></div>
@@ -28,7 +35,6 @@ const Step = ({ text }) => {
 const MainContent = () => {
   return (
     <div className="text-white px-6 py-8 space-y-10">
-
       {/* Title */}
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
@@ -64,10 +70,18 @@ const MainContent = () => {
       {/* Engines */}
       <SectionCard title="🧠 Inside the Browser">
         <ul className="space-y-2">
-          <li>🧱 <b>Rendering Engine</b> → Converts code to UI</li>
-          <li>⚡ <b>JavaScript Engine</b> → Executes JS</li>
-          <li>🌐 <b>Networking</b> → Handles requests</li>
-          <li>🎛️ <b>UI</b> → Buttons, tabs, controls</li>
+          <li>
+            🧱 <b>Rendering Engine</b> → Converts code to UI
+          </li>
+          <li>
+            ⚡ <b>JavaScript Engine</b> → Executes JS
+          </li>
+          <li>
+            🌐 <b>Networking</b> → Handles requests
+          </li>
+          <li>
+            🎛️ <b>UI</b> → Buttons, tabs, controls
+          </li>
         </ul>
       </SectionCard>
 
@@ -75,7 +89,6 @@ const MainContent = () => {
       <SectionCard title="🚀 Evolution of Browsers">
         <BrowserEvolutionLive />
       </SectionCard>
-
     </div>
   );
 };

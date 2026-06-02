@@ -1,59 +1,80 @@
-import { useState } from "react";
-import {SaveIcon,ClearIcon,DownloadIcon} from "../../utils/constants";
+import { useState, useEffect, useRef } from "react";
+import { SaveIcon, ClearIcon, DownloadIcon } from "../../utils/constants";
 
 const NotesEditor = () => {
-  const [Notes, setNotes] = useState(() => {
+  const [notes, setNotes] = useState(() => {
     return localStorage.getItem("Note_key") || "";
   });
+
+  const saveRef = useRef<number | null>(null);
+
+  // Autosave with debounce
+  useEffect(() => {
+    if (saveRef.current) window.clearTimeout(saveRef.current);
+    saveRef.current = window.setTimeout(() => {
+      localStorage.setItem("Note_key", notes);
+    }, 700);
+    return () => {
+      if (saveRef.current) window.clearTimeout(saveRef.current);
+    };
+  }, [notes]);
+
   const handlerSave = () => {
-    localStorage.setItem("Note_key", Notes);
+    localStorage.setItem("Note_key", notes);
   };
+
   const handlerClear = () => {
     localStorage.removeItem("Note_key");
     setNotes("");
   };
+
   const handlerDownload = () => {
-    // download logic
-    const blob = new Blob([Notes], { type: "text/plain" }); // creating blob= binary large object ,raw data file
-    const url = URL.createObjectURL(blob); // then creating a fake url of that file
-    const a = document.createElement("a"); // creating fake anchor tag <a></a>
-    a.href = url; // seting fake url attaching file to tag , now anchor tag pointing to memory location
-    a.download = "My-Notes.pdf"; // triggering download on click()
-    a.click(); // this simulating user clicking the link
-    URL.revokeObjectURL(url); // removing the temporary url
+    const blob = new Blob([notes], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "notes.txt";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <div className="bg-gray-200 rounded-lg p-4 mt-4 mx-4">
-      <h2 className="text-xl font-semibold mb-2">📝 Notes Maker</h2>
+    <div className="bg-slate-800 rounded-lg p-4 mt-4 mx-0 sm:mx-4">
+      <h2 className="text-lg font-semibold mb-2 text-cyan-200">📝 Notes</h2>
 
       <textarea
-        value={Notes}
+        value={notes}
         onChange={(e) => setNotes(e.target.value)}
-        placeholder="Write your notes here..."
-        className="w-full h-40 p-3 border rounded-lg resize-none"
+        placeholder="Write your notes here... (autosaves)"
+        className="w-full h-36 sm:h-48 p-3 bg-slate-900 text-slate-100 border border-white/10 rounded-lg resize-none"
       />
 
-      <div className="flex gap-3 mt-3">
-        <button
-          onClick={handlerSave}
-          className="bg-green-700 text-white px-4 py-2 rounded click:bg-green-500 font-bold"
-        > <SaveIcon/>
-          Save
-        </button>
-        <button
-          onClick={handlerClear}
-          className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-bold"
-        > <ClearIcon/>
-        Clear
-        </button>
+      <div className="flex items-center justify-between gap-3 mt-3">
+        <div className="flex gap-2">
+          <button
+            onClick={handlerSave}
+            className="flex items-center gap-2 bg-cyan-600 text-white px-3 py-2 rounded hover:bg-cyan-500 font-semibold"
+          >
+            <SaveIcon />
+            Save
+          </button>
+          <button
+            onClick={handlerClear}
+            className="flex items-center gap-2 bg-rose-600 text-white px-3 py-2 rounded hover:bg-rose-500 font-semibold"
+          >
+            <ClearIcon />
+            Clear
+          </button>
+          <button
+            onClick={handlerDownload}
+            className="flex items-center gap-2 bg-gray-700 text-white px-3 py-2 rounded hover:bg-gray-600 font-semibold"
+          >
+            <DownloadIcon />
+            Download
+          </button>
+        </div>
 
-        <button
-          onClick={handlerDownload}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-blue-500 font-bold"
-        > <DownloadIcon/>
-        Download
-        </button>
+        <div className="text-sm text-slate-400">{notes.length} chars</div>
       </div>
     </div>
   );

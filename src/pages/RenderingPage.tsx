@@ -2,9 +2,9 @@ import Headers from "../components/Header";
 import RenderingBody from "../components/RenderingBody";
 const RenderingPage = () => {
   return (
-    <div>
-      <Headers></Headers>
-      <div className="bg-[rgb(28,33,48)] min-h-dvh text-white">
+    <div className="bg-[rgb(12,16,26)] text-white">
+      <Headers />
+      <div className="min-h-screen">
         <RenderingBody />
       </div>
     </div>
