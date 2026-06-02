@@ -55,10 +55,10 @@ const EventLoop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+    <div className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       <Header />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="rounded-[2rem] border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.65)]">
+        <div className="rounded-4xl border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.65)]">
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
             <section>
               <h1 className="text-4xl font-bold text-cyan-200">
@@ -92,7 +92,7 @@ const EventLoop = () => {
               </div>
             </section>
 
-            <aside className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+            <aside className="rounded-4xl border border-white/10 bg-slate-950/80 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
               <h2 className="text-xl font-semibold text-cyan-100">
                 How it works
               </h2>
@@ -113,7 +113,7 @@ const EventLoop = () => {
               <h3 className="text-lg font-semibold text-cyan-100">
                 Microtask Queue
               </h3>
-              <div className="mt-4 space-y-2 min-h-[10rem] rounded-3xl bg-slate-900/80 p-4 text-sm text-slate-200">
+              <div className="mt-4 space-y-2 min-h-40 rounded-3xl bg-slate-900/80 p-4 text-sm text-slate-200">
                 {microTasks.length === 0 ? (
                   <p className="text-slate-500">No microtasks waiting.</p>
                 ) : (
@@ -133,7 +133,7 @@ const EventLoop = () => {
               <h3 className="text-lg font-semibold text-cyan-100">
                 Macrotask Queue
               </h3>
-              <div className="mt-4 space-y-2 min-h-[10rem] rounded-3xl bg-slate-900/80 p-4 text-sm text-slate-200">
+              <div className="mt-4 space-y-2 min-h-40 rounded-3xl bg-slate-900/80 p-4 text-sm text-slate-200">
                 {macroTasks.length === 0 ? (
                   <p className="text-slate-500">No macrotasks waiting.</p>
                 ) : (

@@ -63,18 +63,20 @@ const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-3 justify-center">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search concepts…"
-              className="bg-slate-900 text-white placeholder-white/40 px-4 py-2 rounded-full border border-white/10 focus:outline-none focus:border-cyan-500 w-48"
-            />
+        {!isHomepage ? (
+          <div className="flex flex-wrap items-center gap-3 justify-center">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search concepts…"
+                className="bg-slate-900 text-white placeholder-white/40 px-4 py-2 rounded-full border border-white/10 focus:outline-none focus:border-cyan-500 w-48"
+              />
+            </div>
+            <button className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm text-white transition hover:border-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-100">
+              Docs
+            </button>
           </div>
-          <button className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm text-white transition hover:border-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-100">
-            Docs
-          </button>
-        </div>
+        ) : null}
       </div>
     </header>
   );

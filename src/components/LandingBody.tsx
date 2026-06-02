@@ -1,5 +1,11 @@
-import { Link } from "react-router-dom";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 import { motion } from "framer-motion";
 import Terminal from "../engine/Terminal";
 import ChangingTextEff from "../engine/ChangingTextEff";
@@ -90,7 +96,7 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
     mouse.current = { x: mouseX, y: mouseY };
   }, [mouseX, mouseY]);
 
-  const burst = useCallback((e: MouseEvent) => {
+  const burst = useCallback((e: globalThis.MouseEvent) => {
     const r = ref.current?.getBoundingClientRect();
     if (!r) return;
     const cx = e.clientX - r.left,
@@ -489,14 +495,27 @@ function StatCard({
 // ─── LANDING BODY ─────────────────────────────────────────────────────────────
 const LandingBody = () => {
   const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });
+  const [selectedTopic, setSelectedTopic] = useState("Select 🔽");
+  const navigate = useNavigate();
 
-  const handleMouse = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouse = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     setMouse({
       x: (e.clientX - r.left) / r.width,
       y: (e.clientY - r.top) / r.height,
     });
   }, []);
+
+  const getTopicRoute = (topic: string) => {
+    if (topic.startsWith("Event Loop")) return "/event-loop";
+    if (topic.startsWith("Rendering Pipeline")) return "/rendering";
+    if (topic.startsWith("Async Lab")) return "/async-lab";
+    return "/home";
+  };
+
+  const handleStart = () => {
+    navigate(getTopicRoute(selectedTopic));
+  };
 
   return (
     <div
@@ -537,13 +556,14 @@ const LandingBody = () => {
                 "0 0 0 1px rgba(0,229,255,0.2), 0 0 32px rgba(0,229,255,0.12)",
             }}
           >
-            <Terminal />
+            <Terminal onTopicSelect={setSelectedTopic} />
           </div>
-          <Link to="/home" className="w-full sm:w-auto flex justify-center">
-            <button className="w-full sm:w-auto bg-red-500 hover:bg-red-600 active:scale-95 text-white font-bold py-3 px-8 rounded-lg h-12 transition-all duration-200">
-              Start Exploring
-            </button>
-          </Link>
+          <button
+            onClick={handleStart}
+            className="w-full sm:w-auto bg-red-500 hover:bg-red-600 active:scale-95 text-white font-bold py-3 px-8 rounded-lg h-12 transition-all duration-200"
+          >
+            Start Exploring
+          </button>
         </div>
 
         {/* Stats */}

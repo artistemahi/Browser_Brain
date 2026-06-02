@@ -1,4 +1,10 @@
-import { useState, useRef, useEffect, type MouseEventHandler } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  type MouseEventHandler,
+} from "react";
 
 declare global {
   interface Window {
@@ -122,6 +128,58 @@ function NetscapeBrowser() {
   const [inputVal, setInputVal] = useState("http://www.netscape.com/");
   const frameRef = useRef<HTMLIFrameElement | null>(null);
 
+  const renderPage = useCallback(
+    (u: string) => {
+      const p = pages[u as keyof typeof pages];
+      if (!frameRef.current) return;
+      const doc = frameRef.current.contentDocument;
+      if (!doc) return;
+      doc.open();
+      doc.write(`<!DOCTYPE html><html><head><style>
+        body{margin:0;padding:0;background:#fff;}
+        @keyframes marquee{0%{transform:translateX(400px)}100%{transform:translateX(-100%)}}
+      </style></head><body>${p ? p.html : `<div style="padding:20px;text-align:center;font-family:Arial;"><h2 style="color:red;">404 Not Found</h2><p>The document <b>${u}</b> was not found.</p></div>`}</body></html>`);
+      doc.close();
+      setPageTitle(p ? p.title : "404 Not Found – Netscape Navigator 3.0");
+    },
+    [pages],
+  );
+
+  const loadPage = useCallback(
+    (u: string, addHist = false) => {
+      let finalUrl = u;
+      if (!u.startsWith("http"))
+        finalUrl = "http://www." + u.replace(/^www\./, "") + "/";
+      setInputVal(finalUrl);
+      setLoading(true);
+      setStatus("Connecting to " + finalUrl.split("/")[2] + "...");
+      setProgress(5);
+      if (addHist) {
+        setHist((h) => {
+          const n = [...h.slice(0, histIdx + 1), finalUrl];
+          setHistIdx(n.length - 1);
+          return n;
+        });
+      }
+      const iv = setInterval(
+        () => setProgress((p) => Math.min(p + 15, 90)),
+        100,
+      );
+      setTimeout(
+        () => {
+          clearInterval(iv);
+          setProgress(100);
+          renderPage(finalUrl);
+          setLoading(false);
+          setStatus("Document: Done");
+          setTimeout(() => setProgress(0), 400);
+        },
+        800 + Math.random() * 500,
+      );
+    },
+    [histIdx, renderPage],
+  );
+
   useEffect(() => {
     window._ns_go = (u: string) => {
       loadPage(u, true);
@@ -130,49 +188,6 @@ function NetscapeBrowser() {
       delete window._ns_go;
     };
   }, [hist, histIdx]);
-
-  const renderPage = (u: string) => {
-    const p = pages[u as keyof typeof pages];
-    if (!frameRef.current) return;
-    const doc = frameRef.current.contentDocument;
-    if (!doc) return;
-    doc.open();
-    doc.write(`<!DOCTYPE html><html><head><style>
-      body{margin:0;padding:0;background:#fff;}
-      @keyframes marquee{0%{transform:translateX(400px)}100%{transform:translateX(-100%)}}
-    </style></head><body>${p ? p.html : `<div style="padding:20px;text-align:center;font-family:Arial;"><h2 style="color:red;">404 Not Found</h2><p>The document <b>${u}</b> was not found.</p></div>`}</body></html>`);
-    doc.close();
-    setPageTitle(p ? p.title : "404 Not Found – Netscape Navigator 3.0");
-  };
-
-  const loadPage = (u: string, addHist = false) => {
-    let finalUrl = u;
-    if (!u.startsWith("http"))
-      finalUrl = "http://www." + u.replace(/^www\./, "") + "/";
-    setInputVal(finalUrl);
-    setLoading(true);
-    setStatus("Connecting to " + finalUrl.split("/")[2] + "...");
-    setProgress(5);
-    if (addHist) {
-      setHist((h) => {
-        const n = [...h.slice(0, histIdx + 1), finalUrl];
-        setHistIdx(n.length - 1);
-        return n;
-      });
-    }
-    const iv = setInterval(() => setProgress((p) => Math.min(p + 15, 90)), 100);
-    setTimeout(
-      () => {
-        clearInterval(iv);
-        setProgress(100);
-        renderPage(finalUrl);
-        setLoading(false);
-        setStatus("Document: Done");
-        setTimeout(() => setProgress(0), 400);
-      },
-      800 + Math.random() * 500,
-    );
-  };
 
   useEffect(() => {
     renderPage(url);

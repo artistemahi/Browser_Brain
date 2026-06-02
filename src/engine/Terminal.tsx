@@ -1,7 +1,12 @@
 import { terminalItems } from "../../utils/TerminalContent";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import DropdownBtnContent from "../../utils/DropdownBtnContent";
-const Terminal = () => {
+
+interface TerminalProps {
+  onTopicSelect: (topic: string) => void;
+}
+
+const Terminal: React.FC<TerminalProps> = ({ onTopicSelect }) => {
   const [itemIndex, setItemIndex] = useState(0); // konsa topic
   const [lineIndex, setLineIndex] = useState(0); // konsa line
   const [charIndex, setCharIndex] = useState(0); // konsa character
@@ -44,7 +49,7 @@ const Terminal = () => {
   }, [charIndex, lineIndex, itemIndex, currentItem.lines]);
 
   return (
-    <div className="bg-black text-green-500 font-mono p-4 mt-8 rounded-lg w-96 h-56 overflow-hidden">
+    <div className="bg-black text-green-500 font-mono p-4 mt-8 rounded-lg w-96 h-56 overflow-visible">
       {/* Header */}
       <div className="flex gap-2 mb-2 items-center">
         <span className="text-red-500  animate-pulse [animation-delay:0ms]">
@@ -81,11 +86,12 @@ const Terminal = () => {
         </button>
 
         {open && (
-          <div className="absolute left-0 top-full z-10 mt-2 bg-black text-green-500 font-mono p-4 rounded-lg w-48 border border-green-500 shadow-[0_0_30px_rgba(0,229,255,0.25)]">
+          <div className="absolute left-0 top-full z-20 mt-2 bg-black text-green-500 font-mono p-4 rounded-lg w-48 border border-green-500 shadow-[0_0_30px_rgba(0,229,255,0.25)]">
             <DropdownBtnContent
               onSelect={(topic: string) => {
                 setSelectedTopic(topic + " 🔽");
                 setOpen(false);
+                onTopicSelect(topic);
               }}
             />
           </div>
