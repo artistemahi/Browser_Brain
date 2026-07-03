@@ -9,8 +9,6 @@ import {
 import { motion } from "framer-motion";
 import Terminal from "../engine/Terminal";
 import ChangingTextEff from "../engine/ChangingTextEff";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 interface Star {
@@ -18,13 +16,6 @@ interface Star {
   y: number;
   z: number;
   pz: number;
-}
-interface Ring {
-  angle: number;
-  radius: number;
-  color: string;
-  speed: number;
-  nodeIdx: number;
 }
 interface NetNode {
   x: number;
@@ -36,22 +27,6 @@ interface NetNode {
   pulse: number;
   pulseSpeed: number;
   label: string;
-}
-interface Pulse {
-  from: number;
-  to: number;
-  t: number;
-  speed: number;
-  color: string;
-}
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  life: number;
-  color: string;
-  size: number;
 }
 
 const COLORS = [
@@ -90,31 +65,10 @@ const NET_LABELS = [
 function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: 0.5, y: 0.5 });
-  const particles = useRef<Particle[]>([]);
 
   useEffect(() => {
     mouse.current = { x: mouseX, y: mouseY };
   }, [mouseX, mouseY]);
-
-  const burst = useCallback((e: globalThis.MouseEvent) => {
-    const r = ref.current?.getBoundingClientRect();
-    if (!r) return;
-    const cx = e.clientX - r.left,
-      cy = e.clientY - r.top;
-    for (let i = 0; i < 24; i++) {
-      const a = (Math.PI * 2 * i) / 24,
-        sp = 3 + Math.random() * 5;
-      particles.current.push({
-        x: cx,
-        y: cy,
-        vx: Math.cos(a) * sp,
-        vy: Math.sin(a) * sp,
-        life: 1,
-        color: COLORS[i % COLORS.length],
-        size: 2 + Math.random() * 4,
-      });
-    }
-  }, []);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -128,7 +82,6 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
     };
     resize();
     window.addEventListener("resize", resize);
-    canvas.addEventListener("click", burst);
 
     const stars: Star[] = Array.from({ length: 320 }, () => ({
       x: Math.random() * 1600 - 800,
@@ -147,39 +100,13 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
       pulseSpeed: 0.016 + Math.random() * 0.02,
       label,
     }));
-    const rings: Ring[] = Array.from({ length: 5 }, (_, i) => ({
-      angle: (Math.PI * 2 * i) / 5,
-      radius: 120 + i * 40,
-      color: COLORS[i % COLORS.length],
-      speed: 0.003 + i * 0.002,
-      nodeIdx: i % nodes.length,
-    }));
-    const pulses: Pulse[] = [];
-    const spawnPulse = () => {
-      const f = Math.floor(Math.random() * nodes.length);
-      let t = f;
-      while (t === f) t = Math.floor(Math.random() * nodes.length);
-      pulses.push({
-        from: f,
-        to: t,
-        t: 0,
-        speed: 0.003 + Math.random() * 0.006,
-        color: nodes[f].color,
-      });
-    };
 
     const CH = 13;
     const MAT = "DOMCSSOMV8GPUJSHTMLRENDER01";
-    let drops = Array.from(
+    const drops = Array.from(
       { length: Math.floor(canvas.width / CH) },
       () => Math.random() * -100,
     );
-    window.addEventListener("resize", () => {
-      drops = Array.from(
-        { length: Math.floor(canvas.width / CH) },
-        () => Math.random() * -100,
-      );
-    });
 
     const drawHex = (cx: number, cy: number, r: number) => {
       ctx.beginPath();
@@ -193,9 +120,7 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
       ctx.stroke();
     };
 
-    let frame = 0;
     const draw = () => {
-      frame++;
       const W = canvas.width,
         H = canvas.height;
       ctx.clearRect(0, 0, W, H);
@@ -208,6 +133,8 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
       const scx = W / 2,
         scy = H / 2;
       const spd = 4 + Math.abs(mx - 0.5) * 8;
+
+      // Draw stars
       for (const s of stars) {
         s.pz = s.z;
         s.z -= spd;
@@ -229,6 +156,8 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
         ctx.lineWidth = sz * 0.8;
         ctx.stroke();
       }
+
+      // Draw hex grid
       ctx.strokeStyle = "rgba(0,229,255,0.018)";
       ctx.lineWidth = 1;
       const HS = 72;
@@ -239,6 +168,8 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
             row * HS * 1.5 + oy * 0.25,
             HS * 0.5,
           );
+
+      // Draw matrix characters
       ctx.font = `${CH}px monospace`;
       for (let i = 0; i < drops.length; i++) {
         ctx.fillStyle = `rgba(0,229,255,${0.03 + Math.random() * 0.05})`;
@@ -250,6 +181,8 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
         drops[i] += 0.35;
         if (drops[i] > H && Math.random() > 0.977) drops[i] = 0;
       }
+
+      // Draw node connections
       for (let i = 0; i < nodes.length; i++)
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x,
@@ -264,61 +197,8 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
             ctx.stroke();
           }
         }
-      const orbitCX = W * 0.78,
-        orbitCY = H * 0.38;
-      for (const ring of rings) {
-        ring.angle += ring.speed;
-        const rx = orbitCX + Math.cos(ring.angle) * ring.radius;
-        const ry = orbitCY + Math.sin(ring.angle) * ring.radius;
-        ctx.beginPath();
-        ctx.arc(orbitCX, orbitCY, ring.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = ring.color + "12";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(rx, ry, 5, 0, Math.PI * 2);
-        ctx.fillStyle = ring.color;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = ring.color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.font = "9px monospace";
-        ctx.fillStyle = ring.color + "99";
-        ctx.textAlign = "center";
-        ctx.fillText(NET_LABELS[ring.nodeIdx], rx, ry + 16);
-        ctx.textAlign = "left";
-      }
-      if (frame % 28 === 0 && pulses.length < 18) spawnPulse();
-      for (let i = pulses.length - 1; i >= 0; i--) {
-        const p = pulses[i];
-        p.t += p.speed;
-        if (p.t >= 1) {
-          pulses.splice(i, 1);
-          continue;
-        }
-        const fn = nodes[p.from],
-          tn = nodes[p.to];
-        for (let k = 7; k >= 0; k--) {
-          const t2 = Math.max(0, p.t - k * 0.009);
-          const tx = fn.x + (tn.x - fn.x) * t2 + ox,
-            ty = fn.y + (tn.y - fn.y) * t2 + oy;
-          ctx.beginPath();
-          ctx.arc(tx, ty, k === 0 ? 4.5 : 2.5 - k * 0.28, 0, Math.PI * 2);
-          ctx.fillStyle =
-            k === 0
-              ? p.color
-              : p.color +
-                Math.floor((1 - k / 7) * 95)
-                  .toString(16)
-                  .padStart(2, "0");
-          if (k === 0) {
-            ctx.shadowBlur = 26;
-            ctx.shadowColor = p.color;
-          }
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-      }
+
+      // Draw nodes
       for (const nd of nodes) {
         nd.pulse += nd.pulseSpeed;
         const ring2 = Math.sin(nd.pulse) * 6;
@@ -354,27 +234,8 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
         if (nd.y < -80) nd.y = H + 80;
         if (nd.y > H + 80) nd.y = -80;
       }
-      const pts = particles.current;
-      for (let i = pts.length - 1; i >= 0; i--) {
-        const p = pts[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.1;
-        p.life -= 0.022;
-        if (p.life <= 0) {
-          pts.splice(i, 1);
-          continue;
-        }
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-        ctx.globalAlpha = p.life;
-        ctx.fillStyle = p.color;
-        ctx.shadowBlur = 14;
-        ctx.shadowColor = p.color;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur = 0;
-      }
+
+      // Vignette and spotlight
       const spot = ctx.createRadialGradient(
         mx * W,
         my * H,
@@ -387,6 +248,7 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
       spot.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = spot;
       ctx.fillRect(0, 0, W, H);
+
       const vig = ctx.createRadialGradient(
         scx,
         scy,
@@ -402,13 +264,13 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
       ctx.fillRect(0, 0, W, H);
       raf = requestAnimationFrame(draw);
     };
+
     draw();
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      canvas.removeEventListener("click", burst);
     };
-  }, [burst]);
+  }, []);
 
   return (
     <canvas
@@ -422,70 +284,61 @@ function HeroCanvas({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
 function StatCard({
   num,
   label,
-  color,
-  delay,
+  delay = 0,
 }: {
   num: string;
   label: string;
   color: string;
-  delay: number;
+  delay?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ref.current,
-        { y: 40, opacity: 0, scale: 0.85 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          ease: "back.out(2)",
-          delay,
-        },
-      );
-      gsap.to(ref.current, {
-        y: -8,
-        duration: 2 + Math.random(),
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: Math.random() * 2,
-      });
-    },
-    { scope: ref },
-  );
-
   return (
     <motion.div
-      ref={ref}
-      whileHover={{ scale: 1.06, rotateY: 8, rotateX: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="relative flex-1 min-w-20 sm:min-w-22 px-3 sm:px-5 py-3 sm:py-4 text-center cursor-default group"
+      initial={{ y: 40, opacity: 0, scale: 0.85 }}
+      animate={{ y: 0, opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.7,
+        ease: "backOut",
+        delay,
+      }}
+      whileHover={{ scale: 1.08, y: -6 }}
+      whileInView={{
+        y: [-8, 8, -8],
+        transition: {
+          duration: 3 + Math.random() * 2,
+          ease: "easeInOut",
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        },
+      }}
+      className="relative flex-1 min-w-20 sm:min-w-24 px-3 sm:px-5 py-4 sm:py-5 text-center cursor-default group"
       style={{ transformStyle: "preserve-3d" }}
     >
       <div
-        className="absolute inset-0 rounded-lg border border-white/[0.07] group-hover:border-white/20 transition-colors duration-300"
-        style={{ background: "rgba(0,0,0,0.4)", backdropFilter: "blur(20px)" }}
-      />
-      <div
-        className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 rounded-lg border border-red-500/20 group-hover:border-red-500/60 transition-all duration-300"
         style={{
-          background: `radial-gradient(ellipse at center, ${color}18 0%, transparent 70%)`,
+          background: "rgba(0,0,0,0.6)",
+          backdropFilter: "blur(20px)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1)",
         }}
       />
       <div
-        className="relative font-black leading-none"
+        className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-60 transition-opacity duration-300"
         style={{
-          fontSize: "clamp(1.2rem, 4vw, 2.1rem)",
-          color,
-          textShadow: `0 0 28px ${color}`,
+          background: `radial-gradient(ellipse at center, #E50914 0%, transparent 70%)`,
+          filter: "blur(20px)",
+        }}
+      />
+      <div
+        className="relative font-black leading-none tracking-tighter"
+        style={{
+          fontSize: "clamp(1.5rem, 5vw, 2.4rem)",
+          color: "#E50914",
+          textShadow: `0 0 40px rgba(229,9,20,0.6), 0 4px 20px rgba(0,0,0,0.8)`,
         }}
       >
         {num}
       </div>
-      <div className="relative text-[0.58rem] sm:text-[0.62rem] text-white/30 uppercase tracking-[0.08em] sm:tracking-widset mt-1 sm:mt-1.5">
+      <div className="relative text-[0.6rem] sm:text-[0.65rem] text-white/50 uppercase tracking-widest mt-2 sm:mt-2.5 font-semibold group-hover:text-white/80 transition-colors duration-300">
         {label}
       </div>
     </motion.div>
@@ -519,79 +372,128 @@ const LandingBody = () => {
 
   return (
     <div
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       onMouseMove={handleMouse}
     >
       {/* Canvas background */}
       <HeroCanvas mouseX={mouse.x} mouseY={mouse.y} />
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 sm:px-8 py-12 max-w-5xl mx-auto">
-        {/* Headline */}
-        <h1
-          className="text-white font-bold text-center leading-tight"
-          style={{ fontSize: "clamp(2rem, 8vw, 4rem)" }}
-        >
-          The Browser is not magic.
-          <br />
-          <div className="flex items-center justify-center mt-3 flex-wrap gap-2">
-            <span className="text-white/80">It's a</span>
-            <span style={{ filter: "drop-shadow(0 0 28px currentColor)" }}>
-              <ChangingTextEff />
-            </span>
-          </div>
-        </h1>
-
-        {/* Subtitle */}
-        <h2 className="text-white/60 text-sm sm:text-base md:text-lg mt-4 text-center max-w-md">
-          Explore how browsers work under the hood.
-        </h2>
-
-        {/* Terminal  */}
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mt-8 w-full">
-          <div
-            className="w-full sm:w-auto max-w-sm sm:max-w-none"
-            style={{
-              boxShadow:
-                "0 0 0 1px rgba(0,229,255,0.2), 0 0 32px rgba(0,229,255,0.12)",
-            }}
-          >
-            <Terminal onTopicSelect={setSelectedTopic} />
-          </div>
-          <button
-            onClick={handleStart}
-            className="w-full sm:w-auto bg-red-500 hover:bg-red-600 active:scale-95 text-white font-bold py-3 px-8 rounded-lg h-12 transition-all duration-200"
-          >
-            Start Exploring
-          </button>
-        </div>
-
-        {/* Stats */}
+      {/* Content - Split Layout */}
+      <div className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 md:px-12 py-12 lg:py-0">
+        {/* LEFT SECTION */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 w-full mt-8 sm:mt-10"
-          style={{ perspective: "800px" }}
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col justify-center w-full lg:w-1/2 lg:pr-8 mb-12 lg:mb-0 relative"
         >
-          {[
-            {
-              num: "5",
-              label: "Pipeline Stages",
-              color: "#00E5FF",
-              delay: 1.9,
-            },
-            { num: "3", label: "Render Modes", color: "#8B5CF6", delay: 2.0 },
-            { num: "9+", label: "Core Concepts", color: "#00FFA3", delay: 2.1 },
-            {
-              num: "∞",
-              label: "Things to Learn",
-              color: "#F472B6",
-              delay: 2.2,
-            },
-          ].map((s) => (
-            <StatCard key={s.label} {...s} />
-          ))}
+          {/* Netflix red glow effect */}
+          <div
+            className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, #E50914, transparent)",
+            }}
+          />
+
+          <div className="relative z-10">
+            {/* Headline */}
+            <h1
+              className="text-white font-black leading-tight tracking-tight"
+              style={{
+                fontSize: "clamp(2.5rem, 8vw, 4.2rem)",
+                textShadow:
+                  "0 8px 32px rgba(0,0,0,0.8), 0 2px 8px rgba(229,9,20,0.3)",
+              }}
+            >
+              The Browser
+              <br />
+              <span className="text-red-600" style={{ color: "#E50914" }}>
+                is not magic.
+              </span>
+              <br />
+              <div className="flex items-center mt-4 flex-wrap gap-3">
+                <span className="text-white/90 text-lg sm:text-xl font-semibold">
+                  It's a
+                </span>
+                <span
+                  style={{ filter: "drop-shadow(0 0 32px rgba(229,9,20,0.5))" }}
+                >
+                  <ChangingTextEff />
+                </span>
+              </div>
+            </h1>
+
+            {/* Subtitle */}
+            <h2 className="text-white/70 text-base sm:text-lg md:text-xl mt-6 max-w-lg leading-relaxed font-medium">
+              Explore how browsers work under the hood. Master the rendering
+              pipeline, event loop, and async patterns that power modern web
+              development.
+            </h2>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.8, duration: 0.5 }}
+              className="flex flex-wrap gap-3 sm:gap-4 mt-12 w-full"
+              style={{ perspective: "800px" }}
+            >
+              {[
+                { num: "5", label: "Pipeline Stages", delay: 1.9 },
+                { num: "3", label: "Render Modes", delay: 2.0 },
+                { num: "9+", label: "Core Concepts", delay: 2.1 },
+                { num: "∞", label: "Things to Learn", delay: 2.2 },
+              ].map((s) => (
+                <StatCard key={s.label} {...s} color="#E50914" />
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* RIGHT SECTION - Terminal */}
+        <motion.div
+          initial={{ opacity: 0, x: 40, scale: 0.92 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="w-full lg:w-1/2 lg:pl-8 flex items-center justify-center"
+        >
+          <div className="w-full max-w-md">
+            <div
+              className="rounded-xl overflow-hidden group"
+              style={{
+                boxShadow:
+                  "0 0 0 2px rgba(229,9,20,0.3), 0 0 60px rgba(229,9,20,0.25), 0 20px 80px rgba(0,0,0,0.6)",
+              }}
+            >
+              <Terminal onTopicSelect={setSelectedTopic} />
+            </div>
+
+            {/* Start Button */}
+            <motion.button
+              onClick={handleStart}
+              whileHover={{ scale: 1.08, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full mt-8 font-bold py-4 px-8 rounded-lg transition-all duration-300 group overflow-hidden relative"
+              style={{
+                background: "#E50914",
+                boxShadow:
+                  "0 8px 32px rgba(229,9,20,0.4), 0 0 60px rgba(229,9,20,0.2)",
+                fontSize: "clamp(1rem, 2vw, 1.1rem)",
+                letterSpacing: "0.05em",
+              }}
+            >
+              <div className="absolute inset-0 bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative text-white font-black flex items-center justify-center gap-2">
+                Start Exploring
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </span>
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </div>
