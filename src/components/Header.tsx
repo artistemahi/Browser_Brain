@@ -80,7 +80,9 @@ const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
               loop
               muted
               playsInline
-              className="h-24 rounded-full shadow-[0_0_30px_rgba(0,229,255,0.35)]"
+              className="h-24 w-24 shrink-0 rounded-full shadow-[0_0_30px_rgba(0,229,255,0.35)]"
+              preload="auto"
+              style={{ aspectRatio: "1 / 1" }}
             />
             <div>
               <h1 className="text-2xl font-bold tracking-tight">
