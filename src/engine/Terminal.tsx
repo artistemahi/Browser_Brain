@@ -49,47 +49,62 @@ const Terminal: React.FC<TerminalProps> = ({ onTopicSelect }) => {
   }, [charIndex, lineIndex, itemIndex, currentItem.lines]);
 
   return (
-    <div className="bg-black text-green-500 font-mono p-4 mt-8 rounded-lg w-96 h-56 overflow-visible">
+    <div className="bg-black text-green-500 font-mono p-5 rounded-xl w-96 h-80 flex flex-col border-2 border-green-500 shadow-2xl shadow-green-500/20">
       {/* Header */}
-      <div className="flex gap-2 mb-2 items-center">
-        <span className="text-red-500  animate-pulse [animation-delay:0ms]">
+      <div className="flex gap-2 mb-4 items-center">
+        <span className="text-red-500 animate-pulse [animation-delay:0ms]">
           ●
         </span>
-        <span className="text-yellow-500  animate-pulse [animation-delay:200ms]">
+        <span className="text-yellow-500 animate-pulse [animation-delay:200ms]">
           ●
         </span>
-        <span className="text-green-500  animate-pulse [animation-delay:400ms]">
+        <span className="text-green-500 animate-pulse [animation-delay:400ms]">
           ●
         </span>
-        <p className="ml-4 text-sm text-green-300">browser-brain — terminal</p>
+        <p className="ml-4 text-sm text-green-300 font-semibold">
+          browser-brain — terminal
+        </p>
       </div>
 
-      {/* Static Title */}
-      <p className="text-green-300 font-semibold mb-2">{currentItem.title}</p>
+      {/* Divider */}
+      <div className="h-px bg-green-500/30 mb-4"></div>
 
-      {/* Typing Lines */}
-      <p>
-        {text}
-        <span className="animate-pulse">▋</span>
-      </p>
+      {/* Content Container */}
+      <div className="flex-1 overflow-y-auto mb-4 pr-2">
+        {/* Static Title */}
+        <p className="text-green-400 font-semibold mb-3 text-base">
+          {currentItem.title}
+        </p>
+
+        {/* Typing Lines */}
+        <p className="text-sm leading-relaxed text-green-300">
+          {text}
+          <span className="animate-pulse">▋</span>
+        </p>
+      </div>
+
+      {/* Divider */}
+      <div className="h-px bg-green-500/30 mb-3"></div>
 
       {/* Footer hint */}
-      <p className="mt-6 text-xs text-green-400/60">
-        Please select the topic for study
+      <p className="text-xs text-green-400/70 mb-3">
+        $ Select topic to continue
       </p>
+
+      {/* Dropdown */}
       <div className="relative">
         <button
           onClick={() => setOpen(!open)}
-          className="bg-gray-500 hover:bg-white hover:text-black text-white font-bold py-2 px-4 mt-2 rounded-lg"
+          className="w-full bg-green-600/80 hover:bg-green-500 text-black font-bold py-2.5 px-4 rounded-lg transition-all duration-200 text-sm shadow-md hover:shadow-lg hover:shadow-green-500/30"
         >
           {selectedTopic}
         </button>
 
         {open && (
-          <div className="absolute left-0 top-full z-20 mt-2 bg-black text-green-500 font-mono p-4 rounded-lg w-48 border border-green-500 shadow-[0_0_30px_rgba(0,229,255,0.25)]">
+          <div className="absolute left-0 bottom-full mb-2 z-50 bg-black text-green-500 font-mono p-3 rounded-lg w-96 border-2 border-green-500 shadow-2xl shadow-green-500/30 max-h-40 overflow-y-auto">
             <DropdownBtnContent
               onSelect={(topic: string) => {
-                setSelectedTopic(topic + " 🔽");
+                setSelectedTopic(topic + " ✓");
                 setOpen(false);
                 onTopicSelect(topic);
               }}
