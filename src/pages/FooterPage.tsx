@@ -7,7 +7,7 @@ const FooterPage = () => {
         autoPlay
         muted
         loop
-        className="h-24 w-auto rounded-full shadow-[0_0_30px_rgba(0,229,255,0.25)]"
+        className="h-24 w-auto rounded-full shadow-[0_0_30px_rgba(229,9,20,0.35)]"
       />
       <p className="text-sm text-slate-400">
         &copy; 2026 Browser Brain. All rights reserved.
