@@ -94,7 +94,24 @@ const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
               to="/home"
               className="text-2xl font-bold tracking-tight transition hover:text-red-500"
             >
-              Browser Brain
+              <div className="flex items-center justify-between gap-4">
+                <video
+                  src={logoVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  className="h-24 w-24 shrink-0 rounded-full shadow-[0_0_30px_rgba(229,9,20,0.35)]"
+                  style={{ aspectRatio: "1 / 1" }}
+                />
+                <div>
+                  Browser Brain
+                  <p className="text-xs text-white/60">
+                    A visual playground for browser internals.
+                  </p>
+                </div>
+              </div>
             </Link>
             <nav className="flex flex-wrap items-center gap-2">
               {navItems.map((item) => (
