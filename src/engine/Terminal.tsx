@@ -80,7 +80,7 @@ const Terminal: React.FC<TerminalProps> = ({ onTopicSelect }) => {
       <div className="relative">
         <button
           onClick={() => setOpen(!open)}
-          className="w-full rounded-lg bg-red-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-red-500 hover:shadow-lg hover:shadow-red-600/30"
+          className="w-full rounded-lg bg-green-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-blue-500 hover:shadow-lg hover:shadow-red-600/30"
         >
           {selectedTopic}
         </button>
