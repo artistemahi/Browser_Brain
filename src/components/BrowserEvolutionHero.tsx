@@ -1636,6 +1636,59 @@ const eras = [
   },
 ];
 
+// The four era mockups above (Netscape/IE/Chrome/AI) are all built at a
+// fixed 680px design width with hard-coded pixel toolbars/address bars that
+// can't shrink. On narrow phone screens that's wider than the space we have,
+// and since the outer wrapper uses overflow:hidden, the extra width was
+// getting silently cropped instead of scrolling — this component measures
+// the real available width and scales the whole mockup down to fit it,
+// instead of touching every pixel value inside each mockup.
+function ScaledBrowserFrame({ children }: { children: React.ReactNode }) {
+  const DESIGN_WIDTH = 680;
+  const outerRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const [scale, setScale] = useState(1);
+  const [contentHeight, setContentHeight] = useState<number | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (!outer || !inner) return;
+
+    const recalc = () => {
+      const available = outer.offsetWidth;
+      if (!available) return;
+      const nextScale = Math.min(1, available / DESIGN_WIDTH);
+      setScale(nextScale);
+      setContentHeight(inner.offsetHeight * nextScale);
+    };
+
+    recalc();
+
+    const ro = new ResizeObserver(recalc);
+    ro.observe(outer);
+    ro.observe(inner);
+    return () => ro.disconnect();
+  }, [children]);
+
+  return (
+    <div ref={outerRef} style={{ width: "100%", minWidth: 0, height: contentHeight }}>
+      <div
+        ref={innerRef}
+        style={{
+          width: DESIGN_WIDTH,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function BrowserEvolutionLive() {
   const [active, setActive] = useState(0);
   const [animDir, setAnimDir] = useState(0);
@@ -1737,8 +1790,10 @@ function BrowserEvolutionLive() {
       >
         {/* Left */}
         <div
+          className="era-left-col"
           style={{
-            paddingRight: 48,
+            minWidth: 0,
+            boxSizing: "border-box",
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating
               ? `translateX(${animDir * -30}px)`
@@ -1781,9 +1836,10 @@ function BrowserEvolutionLive() {
           </p>
           {/* Stats */}
           <div
+            className="era-stats-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3,1fr)",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
               gap: 10,
               marginBottom: 20,
             }}
@@ -1795,7 +1851,10 @@ function BrowserEvolutionLive() {
             ].map(([v, l], i) => (
               <div
                 key={i}
+                className="era-stat-card"
                 style={{
+                  minWidth: 0,
+                  overflow: "hidden",
                   background: `${era.accent}10`,
                   border: `1px solid ${era.accent}30`,
                   borderRadius: 10,
@@ -1803,16 +1862,24 @@ function BrowserEvolutionLive() {
                 }}
               >
                 <div
-                  style={{ fontSize: 18, fontWeight: 700, color: era.accent }}
+                  className="era-stat-value"
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 700,
+                    color: era.accent,
+                    overflowWrap: "break-word",
+                  }}
                 >
                   {v}
                 </div>
                 <div
+                  className="era-stat-label"
                   style={{
                     fontSize: 10,
                     color: "rgba(255,255,255,0.4)",
                     marginTop: 2,
                     lineHeight: 1.3,
+                    overflowWrap: "break-word",
                   }}
                 >
                   {l}
@@ -1837,7 +1904,10 @@ function BrowserEvolutionLive() {
             {era.fact}
           </div>
           {/* Nav */}
-          <div style={{ display: "flex", gap: 10, marginTop: 28 }}>
+          <div
+            className="era-nav-buttons"
+            style={{ display: "flex", gap: 10, marginTop: 28 }}
+          >
             <button
               onClick={() => goTo(active - 1)}
               disabled={active === 0}
@@ -1851,6 +1921,7 @@ function BrowserEvolutionLive() {
                 cursor: active === 0 ? "not-allowed" : "pointer",
                 transition: "all 0.2s",
                 fontWeight: 500,
+                whiteSpace: "nowrap",
               }}
             >
               ← Previous
@@ -1870,6 +1941,7 @@ function BrowserEvolutionLive() {
                 cursor: active === eras.length - 1 ? "not-allowed" : "pointer",
                 transition: "all 0.2s",
                 fontWeight: 600,
+                whiteSpace: "nowrap",
               }}
             >
               Next Era →
@@ -1880,6 +1952,7 @@ function BrowserEvolutionLive() {
         {/* Right — Live Browser */}
         <div
           style={{
+            minWidth: 0,
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating
               ? `translateX(${animDir * 30}px)`
@@ -1895,7 +1968,9 @@ function BrowserEvolutionLive() {
               border: `1px solid ${era.accent}25`,
             }}
           >
-            <era.Component />
+            <ScaledBrowserFrame key={era.id}>
+              <era.Component />
+            </ScaledBrowserFrame>
           </div>
           <div
             style={{
@@ -1911,9 +1986,19 @@ function BrowserEvolutionLive() {
       </div>
       <style>{`
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-        .browser-evolution-grid { grid-template-columns: 1fr 1.3fr; }
+        .browser-evolution-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+        .era-left-col { padding-right: 48px; }
         @media (max-width: 900px) {
-          .browser-evolution-grid { grid-template-columns: 1fr; padding: 24px 20px !important; }
+          .browser-evolution-grid { grid-template-columns: minmax(0, 1fr); padding: 24px 20px !important; }
+          .era-left-col { padding-right: 0; }
+        }
+        @media (max-width: 600px) {
+          .era-stats-grid { gap: 6px !important; }
+          .era-stat-card { padding: 8px 6px !important; }
+          .era-stat-value { font-size: 15px !important; }
+          .era-stat-label { font-size: 8.5px !important; }
+          .era-nav-buttons { flex-direction: column !important; }
+          .era-nav-buttons > button { width: 100% !important; }
         }
       `}</style>
     </div>
