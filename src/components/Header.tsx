@@ -149,67 +149,85 @@ const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
               </div>
             </div>
           ) : (
-            <>
-              {/* Brand — full-size logo + name, same on every page now */}
-              <Link
-                to="/home"
-                className="flex items-center gap-3 transition hover:text-red-500"
-              >
-                {logo}
-                <span className="text-xl font-bold tracking-tight min-[948px]:text-2xl">
-                  Browser Brain
-                </span>
-              </Link>
-
-              {/* Desktop nav — hidden below 948px, shown as a row from 948px up */}
-              <nav className="hidden flex-wrap items-center gap-2 min-[948px]:flex">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    className={({ isActive }) =>
-                      `rounded-full px-4 py-2 text-sm transition ${
-                        isActive
-                          ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
-                          : "border border-transparent bg-white/5 hover:border-red-600/50 hover:bg-red-600/20"
-                      }`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-              </nav>
-
-              {/* Desktop search + docs — hidden below 948px */}
-              <div className="hidden items-center gap-3 min-[948px]:flex">
-                {searchBox}
+            <div className="flex  w-full items-center justify-between gap-6">
+              {/*left*/}
+                {/* Brand — full-size logo + name, same on every page now */}
                 <Link
-                  to="/docs"
-                  className="rounded-full border border-red-600/40 bg-red-600/10 px-5 py-2 text-sm text-white transition hover:border-red-600 hover:bg-red-600/20 hover:text-red-100 hover:shadow-lg hover:shadow-red-600/20"
+                  to="/home"
+                  className="flex items-center gap-3 transition hover:text-red-500"
                 >
-                  Docs
+                  {logo}
+                  <span className="text-xl font-bold tracking-tight min-[948px]:text-2xl">
+                    Browser Brain
+                  </span>
                 </Link>
+             {/*right*/}
+              <div className="ml-auto flex items-center gap-8">
+                {/* Desktop nav — hidden below 948px, shown as a row from 948px up */}
+                <nav className="hidden flex-wrap items-center gap-2 min-[948px]:flex">
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      className={({ isActive }) =>
+                        `rounded-full px-4 py-2 text-sm transition ${
+                          isActive
+                            ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
+                            : "border border-transparent bg-white/5 hover:border-red-600/50 hover:bg-red-600/20"
+                        }`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  ))}
+                </nav>
+                <div>
+                  {/* Desktop search + docs — hidden below 948px */}
+                  <div className="hidden items-center gap-3 min-[948px]:flex">
+                    {searchBox}
+                    <Link
+                      to="/docs"
+                      className="rounded-full border border-red-600/40 bg-red-600/10 px-5 py-2 text-sm text-white transition hover:border-red-600 hover:bg-red-600/20 hover:text-red-100 hover:shadow-lg hover:shadow-red-600/20"
+                    >
+                      Docs
+                    </Link>
+                  </div>
+                  {/* Hamburger — only visible below 948px */}
+                  <button
+                    onClick={() => setMobileMenuOpen((open) => !open)}
+                    aria-expanded={mobileMenuOpen}
+                    aria-label="Toggle navigation menu"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-red-600/40 bg-red-600/10 text-white transition hover:bg-red-600/20 min-[948px]:hidden"
+                  >
+                    <span className="sr-only">Menu</span>
+                    {mobileMenuOpen ? (
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+                      </svg>
+                    ) : (
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          d="M4 6h16M4 12h16M4 18h16"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
-
-              {/* Hamburger — only visible below 948px */}
-              <button
-                onClick={() => setMobileMenuOpen((open) => !open)}
-                aria-expanded={mobileMenuOpen}
-                aria-label="Toggle navigation menu"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-red-600/40 bg-red-600/10 text-white transition hover:bg-red-600/20 min-[948px]:hidden"
-              >
-                <span className="sr-only">Menu</span>
-                {mobileMenuOpen ? (
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                )}
-              </button>
-            </>
+            </div>
           )}
         </div>
 
@@ -217,7 +235,9 @@ const Header: React.FC<HeaderProps> = ({ isHomepage = false }) => {
         {!isHomepage && (
           <div
             className={`grid overflow-hidden transition-all duration-300 min-[948px]:hidden ${
-              mobileMenuOpen ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              mobileMenuOpen
+                ? "mt-4 grid-rows-[1fr] opacity-100"
+                : "grid-rows-[0fr] opacity-0"
             }`}
           >
             <div className="flex min-h-0 flex-col gap-3">
