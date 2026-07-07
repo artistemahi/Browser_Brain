@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import NotesEditor from "../engine/NotesEditor";
 import { useState, useMemo } from "react";
+import FooterPage from "./FooterPage";
 
 const MAX_LOG_ENTRIES = 8;
 
@@ -149,6 +150,7 @@ const AsyncLab = () => {
           </div>
         </div>
       </div>
+      <FooterPage />
     </div>
   );
 };

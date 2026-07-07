@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import FooterPage from "./FooterPage";
 
 const glossary = [
   { title: "DOM", text: "The browser tree built from HTML." },
@@ -128,6 +129,7 @@ const DocsPage = () => {
           </div>
         </section>
       </main>
+      <FooterPage />
     </div>
   );
 };

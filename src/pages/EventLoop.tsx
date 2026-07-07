@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import FooterPage from "./FooterPage";
 import { useState } from "react";
 
 type TaskType = "Microtask" | "Macrotask";
@@ -152,6 +153,7 @@ const EventLoop = () => {
           </div>
         </div>
       </div>
+      <FooterPage/>
     </div>
   );
 };
