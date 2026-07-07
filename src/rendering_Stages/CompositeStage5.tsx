@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Composite = () => {
+const CompositeStage5 = () => {
   const [animateWidth, setAnimateWidth] = useState(false);
   const [animateTransform, setAnimateTransform] = useState(false);
   const [message, setMessage] = useState("");
@@ -16,13 +16,18 @@ const Composite = () => {
     setAnimateWidth(false);
     setMessage("Only Composite triggered 🚀 (GPU accelerated)");
   };
-  const ResetClickHandler =()=>{
+
+  const handleReset = () => {
     setAnimateWidth(false);
     setAnimateTransform(false);
-  }
+    setMessage("");
+  };
+
   return (
-    <div className="bg-gray-100 rounded-lg p-6 mt-6 shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Composite Stage</h2>
+    <div className="rounded-2xl border border-red-600/20 bg-slate-900/80 p-6 text-slate-200">
+      <h2 className="mb-4 text-2xl font-bold text-red-400">
+        Composite Stage
+      </h2>
 
       <p className="mb-4">
         After paint, the browser splits elements into layers and sends them to
@@ -30,55 +35,50 @@ const Composite = () => {
         final frame.
       </p>
 
-      {/* Demo Buttons */}
-      <div className="flex gap-4 mb-6">
+      <div className="mb-6 flex flex-wrap gap-4">
         <button
           onClick={handleWidthAnimation}
-          className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl"
+          className="rounded-xl bg-red-600 px-4 py-2 text-white transition hover:bg-red-500"
         >
           Animate Width (Expensive)
         </button>
-
         <button
           onClick={handleTransformAnimation}
-          className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-xl"
+          className="rounded-xl border border-red-600/50 bg-transparent px-4 py-2 text-red-300 transition hover:bg-red-600/20"
         >
           Animate Transform (GPU Friendly)
         </button>
       </div>
 
-      {/* visual demo area */}
-      <div className="relative h-48 flex items-center justify-center bg-white rounded-xl border overflow-hidden">
-        {/* Bg Layer */}
-        <div className="absolute inset-0 bg-blue-200 opacity-70"></div>
-
-        {/* animated box */}
+      {/* Demo area — kept as its own dark layer so the "GPU layer" reads
+          distinctly from the surrounding card. */}
+      <div className="relative flex h-48 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-950">
+        <div className="absolute inset-0 bg-red-950/40" />
         <div
-          className={`relative bg-purple-600 text-white flex items-center justify-center 
-          rounded-xl transition-all duration-700
-          ${animateWidth ? "w-72 h-20" : "w-40 h-20"}
-          ${animateTransform ? "translate-x-20" : "translate-x-0"}
-          `}
+          className={`relative flex items-center justify-center rounded-xl bg-red-600 text-white transition-all duration-700
+          ${animateWidth ? "h-20 w-72" : "h-20 w-40"}
+          ${animateTransform ? "translate-x-20" : "translate-x-0"}`}
         >
           Layer Element
         </div>
       </div>
-      {/* reset button */}
-      <button onClick={ResetClickHandler} className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 mt-3 rounded-xl">
+
+      <button
+        onClick={handleReset}
+        className="mt-3 rounded-xl bg-white/10 px-4 py-2 text-white transition hover:bg-white/20"
+      >
         Reset
       </button>
 
-      {/* info panel */}
       {message && (
-        <div className="mt-6 bg-black text-white p-4 rounded-xl">
+        <div className="mt-6 rounded-xl border border-red-600/30 bg-black p-4">
           <p>{message}</p>
-          <p className="mt-2 text-sm text-gray-300">
+          <p className="mt-2 text-sm text-slate-400">
             CPU handles Layout & Paint. GPU handles Composite.
           </p>
         </div>
       )}
 
-      {/*explaination*/}
       <div className="mt-6 space-y-2 text-sm">
         <p>
           🔴 Changing <strong>width</strong> triggers layout recalculation,
@@ -93,4 +93,4 @@ const Composite = () => {
   );
 };
 
-export default Composite;
+export default CompositeStage5;

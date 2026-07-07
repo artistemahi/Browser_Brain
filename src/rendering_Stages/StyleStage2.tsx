@@ -1,55 +1,55 @@
 import { useState } from "react";
-interface prop {
+
+interface StyleStageProps {
   css: string;
   html: string;
   setCss: React.Dispatch<React.SetStateAction<string>>;
-  
 }
 
-const Style = ({ css, setCss  }: prop) => {
-  const [IsOpen, setIsOpen] = useState(false);
-  const ClickHandler = () => {
-    setIsOpen(!IsOpen);
-  };
+const StyleStage2 = ({ css, setCss }: StyleStageProps) => {
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="bg-gray-200 rounded-lg p-4 mt-4 transition-all duration-300">
-      <h2 className="text-2xl font-bold mb-2">Style</h2>
-      <p>
-        After the DOM is constructed, now the browser reads the CSS.
-        <button
-          onClick={ClickHandler}
-          className="hover:bg-green-500 rounded-2xl text-white bg-green-600 hover:cursor-pointer p-2"
-        >
-          Do you think what does browser reads in the CSS file ❓{" "}
-        </button>
-        {IsOpen && (
-          <div className="p-2 bg-cyan-300 rounded-3xl m-3">
-            <div className="p-4">
-            <p>• Reads selectors (h1, .box, #id)</p>
-            <p>• Reads style rules (color, font-size, etc.)</p>
-            <p>• Reads media queries (for responsive design)</p>
-            <p>• Reads selectors (h1, .box, #id)</p>
-            <p>• Reads keyframes (for animations)</p>
-          </div>
-          </div>
-        )}
-        <p>
-          Then Browser Converts CSS into another structured tree. This is called
-          the CSSOM (CSS Object Model).
-        </p>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 text-start">
-          Style = Browser calculates computed CSS
-        </button>
-        <div className="bg-amber-300 flex justify-evenly  border-b-black border-2 rounded-lg p-4 mt-4">
-          <textarea
-            value={css}
-            onChange={(e) => setCss(e.target.value)}
-            className="w-full p-3 font-mono font-size-14 bg-gray-100 border border-gray-300 rounded-lg"
-          />
+    <div className="rounded-2xl border border-red-600/20 bg-slate-900/80 p-4 text-start text-slate-200 transition-all duration-300">
+      <h2 className="mb-2 text-2xl font-bold text-red-400">Style</h2>
+
+      <p>After the DOM is constructed, the browser now reads the CSS.</p>
+
+      <button
+        onClick={() => setShowDetails(!showDetails)}
+        className="mt-3 rounded-2xl bg-red-600 px-4 py-2 text-white transition hover:bg-red-500"
+      >
+        Do you know what the browser reads in the CSS file? ❓
+      </button>
+
+      {showDetails && (
+        <div className="mt-3 rounded-2xl border border-red-600/20 bg-slate-950 p-4 text-sm text-slate-200">
+          <p>• Reads selectors (h1, .box, #id)</p>
+          <p>• Reads style rules (color, font-size, etc.)</p>
+          <p>• Reads media queries (for responsive design)</p>
+          <p>• Reads keyframes (for animations)</p>
         </div>
+      )}
+
+      <p className="mt-4">
+        The browser then converts CSS into another structured tree. This is
+        called the CSSOM (CSS Object Model).
       </p>
+
+      <div className="mt-3 rounded-lg border border-red-600/30 bg-red-600/10 px-4 py-3 text-sm text-red-100">
+        Style = Browser calculates computed CSS.
+      </div>
+
+      <div className="mt-4 rounded-lg border border-white/10 bg-slate-950 p-4">
+        <textarea
+          value={css}
+          onChange={(e) => setCss(e.target.value)}
+          rows={4}
+          className="w-full rounded-lg border border-white/10 bg-slate-900 p-3 font-mono text-sm text-slate-100 focus:border-red-600/60 focus:outline-none"
+        />
+      </div>
     </div>
   );
 };
-export default Style;
+
+export default StyleStage2;

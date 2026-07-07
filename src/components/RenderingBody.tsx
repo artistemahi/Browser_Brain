@@ -3,16 +3,20 @@ import RenderingContent from "./RenderingContent";
 import RenderingRight from "./RenderingRight";
 import { useRef, useState } from "react";
 
-const RenderingBody = () => {
-  const [html, setHtml] = useState(`
+const DEFAULT_HTML = `
   <head>
     <title>My Page</title>
   </head>
   <body>
     <h1>Hello World</h1>
     <h2>Type here</h2>
-  </body>`);
-  const [css, setCss] = useState(`h1 { color: red; }`);
+  </body>`;
+
+const DEFAULT_CSS = `h1 { color: red; }`;
+
+const RenderingBody = () => {
+  const [html, setHtml] = useState(DEFAULT_HTML);
+  const [css, setCss] = useState(DEFAULT_CSS);
   const [showLayoutBorder, setShowLayoutBorder] = useState(false);
 
   const domRef = useRef<HTMLDivElement>(null);
@@ -22,17 +26,14 @@ const RenderingBody = () => {
   const compositeRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
-    ref.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="min-h-screen bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-8 text-white">
-        <div className="mb-8 rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_30px_80px_rgba(7,19,48,0.6)]">
-          <h1 className="text-4xl font-bold text-cyan-200">
+        <div className="mb-8 rounded-3xl border border-red-600/20 bg-slate-900/80 p-6 shadow-[0_30px_80px_rgba(7,19,48,0.6)]">
+          <h1 className="text-4xl font-bold text-red-400">
             Rendering Pipeline Studio
           </h1>
           <p className="mt-3 max-w-2xl text-slate-300">
@@ -44,37 +45,37 @@ const RenderingBody = () => {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)_320px]">
-          <aside className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_24px_80px_rgba(7,19,48,0.55)]">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/80">
+          <aside className="rounded-3xl border border-red-600/20 bg-slate-900/80 p-6 shadow-[0_24px_80px_rgba(7,19,48,0.55)]">
+            <p className="text-sm uppercase tracking-[0.3em] text-red-500/80">
               Navigation
             </p>
             <div className="mt-6 space-y-3">
               <button
-                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-cyan-500/20"
+                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-red-600/20"
                 onClick={() => scrollToSection(domRef)}
               >
                 🌿 DOM Stage
               </button>
               <button
-                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-cyan-500/20"
+                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-red-600/20"
                 onClick={() => scrollToSection(styleRef)}
               >
                 🎭 Style Stage
               </button>
               <button
-                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-cyan-500/20"
+                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-red-600/20"
                 onClick={() => scrollToSection(layoutRef)}
               >
                 📐 Layout Stage
               </button>
               <button
-                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-cyan-500/20"
+                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-red-600/20"
                 onClick={() => scrollToSection(paintRef)}
               >
                 🖌 Paint Stage
               </button>
               <button
-                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-cyan-500/20"
+                className="w-full rounded-2xl bg-white/5 px-4 py-3 text-left text-sm transition hover:bg-red-600/20"
                 onClick={() => scrollToSection(compositeRef)}
               >
                 🚀 Composite Stage
@@ -98,9 +99,9 @@ const RenderingBody = () => {
           </main>
 
           <aside className="rounded-4xl border border-white/10 bg-slate-900/90 p-6 shadow-[0_40px_120px_rgba(7,19,48,0.55)]">
-            <div className="space-y-6 sticky top-6">
+            <div className="sticky top-6 space-y-6">
               <div className="rounded-3xl bg-slate-950/80 p-4">
-                <h2 className="text-lg font-semibold text-cyan-200">
+                <h2 className="text-lg font-semibold text-red-400">
                   Preview & DOM Map
                 </h2>
                 <p className="mt-2 text-sm text-slate-400">

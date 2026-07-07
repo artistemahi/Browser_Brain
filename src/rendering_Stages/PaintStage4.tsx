@@ -1,66 +1,61 @@
 import { useState } from "react";
 
-const Paint = () => {
+const PaintStage4 = () => {
   const [isPainted, setIsPainted] = useState(false);
-  const [color, setColor] = useState("bg-gray-300");
+  const [demoColor, setDemoColor] = useState("bg-red-600");
 
-  const handlePaint = () => {
-    setIsPainted(true);
-  };
+  const startPaint = () => setIsPainted(true);
 
+  // Toggling between two colors on click simulates a "repaint" —
+  // the colors themselves are just illustrative, not part of the theme.
   const triggerRepaint = () => {
-    setColor(prev =>
-      prev === "bg-blue-500" ? "bg-green-500" : "bg-blue-500"
-    );
+    setDemoColor((prev) => (prev === "bg-red-600" ? "bg-blue-500" : "bg-red-600"));
   };
 
   return (
-    <div className="bg-gray-100 rounded-lg p-6 mt-6 shadow-md">
-
-      <h2 className="text-2xl font-bold mb-4">Paint Stage</h2>
+    <div className="rounded-2xl border border-red-600/20 bg-slate-900/80 p-6 text-slate-200">
+      <h2 className="mb-4 text-2xl font-bold text-red-400">Paint Stage</h2>
 
       <p className="mb-4">
-        After layout calculates positions, the browser now paints pixels on the screen.
+        After layout calculates positions, the browser now paints pixels on
+        the screen.
       </p>
 
-      {/* Paint Button */}
       <button
-        onClick={handlePaint}
-        className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl transition"
+        onClick={startPaint}
+        className="rounded-xl bg-red-600 px-4 py-2 text-white transition hover:bg-red-500"
       >
         Start Paint Stage
       </button>
 
-      {/* Render Box */}
       <div className="mt-6 flex justify-center">
         <div
-          className={`w-64 h-40 border-2 border-black flex items-center justify-center transition-all duration-700
-          ${isPainted ? color : "bg-transparent"}`}
+          className={`flex h-40 w-64 items-center justify-center rounded-lg border-2 border-red-600/30 transition-all duration-700 ${
+            isPainted ? demoColor : "bg-transparent"
+          }`}
         >
           {isPainted && (
-            <p className="text-white font-bold text-lg transition-opacity duration-700">
+            <p className="text-lg font-bold text-white transition-opacity duration-700">
               Painted Content
             </p>
           )}
         </div>
       </div>
 
-      {/* Repaint Button */}
       {isPainted && (
         <button
           onClick={triggerRepaint}
-          className="mt-6 bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl"
+          className="mt-6 rounded-xl border border-red-600/50 bg-transparent px-4 py-2 text-red-300 transition hover:bg-red-600/20"
         >
           Change Color
         </button>
       )}
 
-      <p className="mt-6 text-red-600 font-semibold">
+      <p className="mt-6 font-semibold text-red-400">
         Changing color triggers Repaint (no layout recalculation).
       </p>
-
     </div>
   );
 };
 
-export default Paint;
+export default PaintStage4;

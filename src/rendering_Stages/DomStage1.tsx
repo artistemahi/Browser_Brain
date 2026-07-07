@@ -1,31 +1,38 @@
-interface prop{
-  html:string;
-  setHtml:React.Dispatch<React.SetStateAction<string>>;
+interface DomStage1Props {
+  html: string;
+  setHtml: React.Dispatch<React.SetStateAction<string>>;
 }
-const DomStage1 = ({html, setHtml}:prop) => {
+
+const DomStage1 = ({ html, setHtml }: DomStage1Props) => {
   return (
-    <div className="p-4 bg-gray-200 rounded-lg text-start">
-      <h2 className="text-2xl font-bold mb-2">DOM</h2>
+    <div className="rounded-2xl border border-red-600/20 bg-slate-900/80 p-4 text-start text-slate-200">
+      <h2 className="mb-2 text-2xl font-bold text-red-400">DOM</h2>
+
       <p>
         The Document Object Model (DOM) is a programming interface for HTML and
         XML documents. It represents the structure of a webpage as a tree of
         objects that can be manipulated with JavaScript.
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 text-start">
-          Browser does not understand HTML as text. Browser convert HTML into
-          tree structure that is DOM{" "}
-        </button>
-        <div className="bg-amber-300 flex justify-evenly  border-b-black border-2 rounded-lg p-4 mt-4">
-          {/* inputing the text */}
-          <textarea
-            className="w-full p-3 font-mono font-size-14 bg-gray-100 border border-gray-300 rounded-lg"
-            value={html}
-            onChange={(e) => setHtml(e.target.value)}
-          />
-        </div>
-        <div>
-          At this stage:<br></br> <b>The browser knows what elements exist, But it
-          does not know how they should look yet</b>
-        </div>
+      </p>
+
+      {/* This used to be a fake <button> — it's just an explanatory callout,
+          not something you click, so it's a styled div instead. */}
+      <div className="mt-4 rounded-lg border border-red-600/30 bg-red-600/10 px-4 py-3 text-sm text-red-100">
+        Browser does not understand HTML as text. The browser converts HTML
+        into a tree structure — that is the DOM.
+      </div>
+
+      <div className="mt-4 rounded-lg border border-white/10 bg-slate-950 p-4">
+        <textarea
+          className="w-full rounded-lg border border-white/10 bg-slate-900 p-3 font-mono text-sm text-slate-100 focus:border-red-600/60 focus:outline-none"
+          value={html}
+          onChange={(e) => setHtml(e.target.value)}
+          rows={6}
+        />
+      </div>
+
+      <p className="mt-4">
+        At this stage: <b>the browser knows what elements exist, but it does
+        not know how they should look yet.</b>
       </p>
     </div>
   );

@@ -1653,14 +1653,19 @@ function BrowserEvolutionLive() {
   };
 
   return (
+    // NOTE: minHeight is intentionally NOT 100vh — this component renders
+    // nested inside a card on the homepage, not as its own full page.
+    // Using 100vh here previously blew out the page layout.
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "clamp(520px, 70vh, 720px)",
         background: "#030306",
         color: "#fff",
         fontFamily: "'Inter','DM Sans',system-ui,sans-serif",
         display: "flex",
         flexDirection: "column",
+        borderRadius: 16,
+        overflow: "hidden",
       }}
     >
       {/* Header */}
@@ -1717,10 +1722,10 @@ function BrowserEvolutionLive() {
 
       {/* Content */}
       <div
+        className="browser-evolution-grid"
         style={{
           flex: 1,
           display: "grid",
-          gridTemplateColumns: "1fr 1.3fr",
           gap: 0,
           maxWidth: 1200,
           margin: "0 auto",
@@ -1904,7 +1909,13 @@ function BrowserEvolutionLive() {
           </div>
         </div>
       </div>
-      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}`}</style>
+      <style>{`
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+        .browser-evolution-grid { grid-template-columns: 1fr 1.3fr; }
+        @media (max-width: 900px) {
+          .browser-evolution-grid { grid-template-columns: 1fr; padding: 24px 20px !important; }
+        }
+      `}</style>
     </div>
   );
 }

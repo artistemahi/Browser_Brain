@@ -1,9 +1,10 @@
-import Headers from "../components/Header";
+import Header from "../components/Header";
 import RenderingBody from "../components/RenderingBody";
+
 const RenderingPage = () => {
   return (
     <div className="bg-[rgb(12,16,26)] text-white">
-      <Headers />
+      <Header />
       <div className="min-h-screen">
         <RenderingBody />
       </div>

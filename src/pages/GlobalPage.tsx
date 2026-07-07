@@ -1,14 +1,13 @@
-import Headers from '../components/Header'
-import GlobalBody from '../components/GlobalBody'
+import Header from "../components/Header";
+import GlobalBody from "../components/GlobalBody";
+
 const GlobalPage = () => {
-   
   return (
     <div>
-
-        <Headers ></Headers>
-        <GlobalBody></GlobalBody>
+      <Header />
+      <GlobalBody />
     </div>
-  )
-}
+  );
+};
 
 export default GlobalPage;

@@ -7,30 +7,28 @@ interface TerminalProps {
 }
 
 const Terminal: React.FC<TerminalProps> = ({ onTopicSelect }) => {
-  const [itemIndex, setItemIndex] = useState(0); // konsa topic
-  const [lineIndex, setLineIndex] = useState(0); // konsa line
-  const [charIndex, setCharIndex] = useState(0); // konsa character
+  const [itemIndex, setItemIndex] = useState(0); // which topic is currently typing
+  const [lineIndex, setLineIndex] = useState(0); // which line within that topic
+  const [charIndex, setCharIndex] = useState(0); // which character within that line
   const [text, setText] = useState("");
 
-  const currentItem = terminalItems[itemIndex];
-  // console.log("Current Item:", currentItem);
-
-  //select btn
   const [open, setOpen] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState("Select 🔽");
 
+  const currentItem = terminalItems[itemIndex];
+
+  // Typing effect: reveals one character at a time, then pauses, then
+  // moves to the next line, then loops to the next topic.
   useEffect(() => {
     const currentLine = currentItem.lines[lineIndex];
     let timer: ReturnType<typeof setTimeout>;
 
     if (charIndex < currentLine.length) {
-      // Typing characters
       timer = setTimeout(() => {
         setText(currentLine.slice(0, charIndex + 1));
         setCharIndex(charIndex + 1);
       }, 60);
     } else {
-      // Line completed
       timer = setTimeout(() => {
         setCharIndex(0);
         setText("");
@@ -38,9 +36,8 @@ const Terminal: React.FC<TerminalProps> = ({ onTopicSelect }) => {
         if (lineIndex < currentItem.lines.length - 1) {
           setLineIndex(lineIndex + 1);
         } else {
-          // Move to next topic
           setLineIndex(0);
-          setItemIndex((itemIndex + 1) % terminalItems.length); // loop back to first topic  (0+1)%3=1, (1+1)%3=2, (2+1)%3=0
+          setItemIndex((itemIndex + 1) % terminalItems.length);
         }
       }, 800);
     }
@@ -49,59 +46,47 @@ const Terminal: React.FC<TerminalProps> = ({ onTopicSelect }) => {
   }, [charIndex, lineIndex, itemIndex, currentItem.lines]);
 
   return (
-    <div className="bg-black text-green-500 font-mono p-5 rounded-xl w-96 h-80 flex flex-col border-2 border-green-500 shadow-2xl shadow-green-500/20">
-      {/* Header */}
-      <div className="flex gap-2 mb-4 items-center">
-        <span className="text-red-500 animate-pulse [animation-delay:0ms]">
-          ●
-        </span>
-        <span className="text-yellow-500 animate-pulse [animation-delay:200ms]">
-          ●
-        </span>
-        <span className="text-green-500 animate-pulse [animation-delay:400ms]">
-          ●
-        </span>
-        <p className="ml-4 text-sm text-green-300 font-semibold">
+    <div className="flex h-80 w-full max-w-md flex-col rounded-xl border-2 border-red-600/60 bg-black p-5 font-mono text-red-500 shadow-2xl shadow-red-600/20">
+      {/* Window controls */}
+      <div className="mb-4 flex items-center gap-2">
+        <span className="text-red-500 [animation-delay:0ms] animate-pulse">●</span>
+        <span className="text-red-400/80 [animation-delay:200ms] animate-pulse">●</span>
+        <span className="text-red-300/60 [animation-delay:400ms] animate-pulse">●</span>
+        <p className="ml-4 text-sm font-semibold text-red-300">
           browser-brain — terminal
         </p>
       </div>
 
-      {/* Divider */}
-      <div className="h-px bg-green-500/30 mb-4"></div>
+      <div className="mb-4 h-px bg-red-600/30" />
 
-      {/* Content Container */}
-      <div className="flex-1 overflow-y-auto mb-4 pr-2">
-        {/* Static Title */}
-        <p className="text-green-400 font-semibold mb-3 text-base">
+      {/* Typing content */}
+      <div className="mb-4 flex-1 overflow-y-auto pr-2">
+        <p className="mb-3 text-base font-semibold text-red-400">
           {currentItem.title}
         </p>
-
-        {/* Typing Lines */}
-        <p className="text-sm leading-relaxed text-green-300">
+        <p className="text-sm leading-relaxed text-red-300">
           {text}
           <span className="animate-pulse">▋</span>
         </p>
       </div>
 
-      {/* Divider */}
-      <div className="h-px bg-green-500/30 mb-3"></div>
+      <div className="mb-3 h-px bg-red-600/30" />
 
-      {/* Footer hint */}
-      <p className="text-xs text-green-400/70 mb-3">
+      <p className="mb-3 text-xs text-red-400/70">
         $ Select topic to continue
       </p>
 
-      {/* Dropdown */}
+      {/* Topic dropdown */}
       <div className="relative">
         <button
           onClick={() => setOpen(!open)}
-          className="w-full bg-green-600/80 hover:bg-green-500 text-black font-bold py-2.5 px-4 rounded-lg transition-all duration-200 text-sm shadow-md hover:shadow-lg hover:shadow-green-500/30"
+          className="w-full rounded-lg bg-red-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-red-500 hover:shadow-lg hover:shadow-red-600/30"
         >
           {selectedTopic}
         </button>
 
         {open && (
-          <div className="absolute left-0 bottom-full mb-2 z-50 bg-black text-green-500 font-mono p-3 rounded-lg w-96 border-2 border-green-500 shadow-2xl shadow-green-500/30 max-h-40 overflow-y-auto">
+          <div className="absolute bottom-full left-0 z-50 mb-2 max-h-40 w-full overflow-y-auto rounded-lg border-2 border-red-600/60 bg-black p-3 font-mono text-red-500 shadow-2xl shadow-red-600/30">
             <DropdownBtnContent
               onSelect={(topic: string) => {
                 setSelectedTopic(topic + " ✓");

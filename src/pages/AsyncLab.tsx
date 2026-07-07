@@ -2,6 +2,8 @@ import Header from "../components/Header";
 import NotesEditor from "../engine/NotesEditor";
 import { useState, useMemo } from "react";
 
+const MAX_LOG_ENTRIES = 8;
+
 const AsyncLab = () => {
   const [log, setLog] = useState<string[]>([
     "Ready for async experiments.",
@@ -11,13 +13,13 @@ const AsyncLab = () => {
   const [search, setSearch] = useState("");
 
   const filteredLog = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return log;
-    return log.filter((l) => l.toLowerCase().includes(q));
+    const query = search.trim().toLowerCase();
+    if (!query) return log;
+    return log.filter((entry) => entry.toLowerCase().includes(query));
   }, [log, search]);
 
   const appendLog = (message: string) => {
-    setLog((current) => [message, ...current].slice(0, 8));
+    setLog((current) => [message, ...current].slice(0, MAX_LOG_ENTRIES));
   };
 
   const runPromiseExample = () => {
@@ -46,14 +48,11 @@ const AsyncLab = () => {
   const clearLog = () => setLog(["Ready for async experiments."]);
 
   return (
-    <div
-      className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white"
-      id="async-main"
-    >
+    <div className="min-h-screen bg-slate-950 text-white" id="async-main">
       <Header />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="rounded-4xl border border-white/10 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.65)]">
-          <h1 className="text-4xl font-bold tracking-tight text-cyan-200">
+        <div className="rounded-4xl border border-red-600/20 bg-slate-900/90 p-8 shadow-[0_40px_120px_rgba(7,19,48,0.65)]">
+          <h1 className="text-4xl font-bold tracking-tight text-red-400">
             Async Lab
           </h1>
           <p className="mt-4 max-w-2xl text-slate-300">
@@ -62,12 +61,9 @@ const AsyncLab = () => {
             execution order.
           </p>
 
-          <div className="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            <div
-              className="rounded-3xl bg-slate-950/80 p-6 border border-white/10"
-              id="promises"
-            >
-              <h2 className="text-xl font-semibold text-cyan-100">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-3xl border border-red-600/20 bg-slate-950/80 p-6" id="promises">
+              <h2 className="text-xl font-semibold text-red-300">
                 Promise order
               </h2>
               <p className="mt-3 text-slate-400">
@@ -76,17 +72,14 @@ const AsyncLab = () => {
               </p>
               <button
                 onClick={runPromiseExample}
-                className="mt-6 w-full rounded-2xl bg-cyan-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+                className="mt-6 w-full rounded-2xl bg-red-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-red-500"
               >
                 Run Promise Example
               </button>
             </div>
 
-            <div
-              className="rounded-3xl bg-slate-950/80 p-6 border border-white/10"
-              id="async-await"
-            >
-              <h2 className="text-xl font-semibold text-emerald-200">
+            <div className="rounded-3xl border border-red-600/20 bg-slate-950/80 p-6" id="async-await">
+              <h2 className="text-xl font-semibold text-red-300">
                 Timeout & network
               </h2>
               <p className="mt-3 text-slate-400">
@@ -95,14 +88,14 @@ const AsyncLab = () => {
               </p>
               <button
                 onClick={runFetchSimulation}
-                className="mt-6 w-full rounded-2xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400"
+                className="mt-6 w-full rounded-2xl border border-red-600/50 bg-transparent px-4 py-3 text-sm font-semibold text-red-300 transition hover:bg-red-600/20"
               >
                 Simulate fetch
               </button>
             </div>
 
-            <div className="rounded-3xl bg-slate-950/80 p-6 border border-white/10">
-              <h2 className="text-xl font-semibold text-fuchsia-200">
+            <div className="rounded-3xl border border-red-600/20 bg-slate-950/80 p-6">
+              <h2 className="text-xl font-semibold text-red-300">
                 Realtime log
               </h2>
               <p className="mt-3 text-slate-400">
@@ -117,33 +110,28 @@ const AsyncLab = () => {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 grid-cols-1 md:grid-cols-2">
-            <div className="rounded-[1.8rem] border border-cyan-500/20 bg-black/60 p-6 text-sm text-slate-200 shadow-[0_30px_80px_rgba(0,229,255,0.15)]">
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-[1.8rem] border border-red-600/20 bg-black/60 p-6 text-sm text-slate-200 shadow-[0_30px_80px_rgba(229,9,20,0.12)]">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-cyan-100">
+                <h2 className="text-lg font-semibold text-red-400">
                   Event Loop Console
                 </h2>
-                <div className="flex items-center gap-2">
-                  <input
-                    aria-label="Search log"
-                    placeholder="Search log..."
-                    className="rounded-md bg-white/5 px-3 py-1 text-sm text-slate-200 placeholder:text-slate-400 outline-none"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </div>
+                <input
+                  aria-label="Search log"
+                  placeholder="Search log..."
+                  className="rounded-md bg-white/5 px-3 py-1 text-sm text-slate-200 outline-none placeholder:text-slate-400"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </div>
 
               <div className="mt-4">
-                <div className="mb-2 text-slate-400 text-xs">
+                <div className="mb-2 text-xs text-slate-400">
                   Most recent first — filtered view
                 </div>
-                <div className="space-y-2 max-h-96 overflow-y-auto pr-2">
+                <div className="max-h-96 space-y-2 overflow-y-auto pr-2">
                   {filteredLog.map((entry, index) => (
-                    <p
-                      key={`${entry}-${index}`}
-                      className="rounded-2xl bg-white/5 px-3 py-2 text-slate-100"
-                    >
+                    <p key={`${entry}-${index}`} className="rounded-2xl bg-white/5 px-3 py-2 text-slate-100">
                       {entry}
                     </p>
                   ))}
@@ -152,8 +140,8 @@ const AsyncLab = () => {
             </div>
 
             <div className="rounded-[1.8rem] border border-white/5 bg-slate-900/60 p-4">
-              <h3 className="text-lg font-semibold text-cyan-100">Notes</h3>
-              <p className="text-sm text-slate-400 mt-1">
+              <h3 className="text-lg font-semibold text-red-400">Notes</h3>
+              <p className="mt-1 text-sm text-slate-400">
                 Personal notes for experiments.
               </p>
               <NotesEditor />
