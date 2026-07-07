@@ -15,6 +15,9 @@ export default {
       animation: {
         fade: "fade 0.6s ease-in-out",
       },
+      screens: {
+        nav: "951px", // custom breakpoint name
+      },
     },
   },
   plugins: [],
